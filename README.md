@@ -247,6 +247,14 @@ the following samples are E0771 mouse breast cancer mets to the brain, so need t
     samtools sort -@ 8 -o 16_rep1.bam 16_rep1.sam
     samtools sort -@ 8 -o 16_rep2.bam 16_rep2.sam
 
+    samtools sort -@ 8 -o 20_rep1.bam 20_rep1.sam
+    samtools sort -@ 8 -o 20_rep2.bam 20_rep2.sam
+
+    samtools sort -@ 8 -o 21_rep1.bam 21_rep1.sam
+    samtools sort -@ 8 -o 21_rep2.bam 21_rep2.sam
+    
+mouse ones
+    
     samtools sort -@ 8 -o 17_rep1.bam 17_rep1.sam
     samtools sort -@ 8 -o 17_rep2.bam 17_rep2.sam
 
@@ -256,14 +264,9 @@ the following samples are E0771 mouse breast cancer mets to the brain, so need t
     samtools sort -@ 8 -o 19_rep1.bam 19_rep1.sam
     samtools sort -@ 8 -o 19_rep2.bam 19_rep2.sam
 
-    samtools sort -@ 8 -o 20_rep1.bam 20_rep1.sam
-    samtools sort -@ 8 -o 20_rep2.bam 20_rep2.sam
-
-    samtools sort -@ 8 -o 21_rep1.bam 21_rep1.sam
-    samtools sort -@ 8 -o 21_rep2.bam 21_rep2.sam
 
 
-Index bam files: make sure that the only files in the directory are the sam and bam/bai files, then:
+Index all bam files: make sure that the only files in the directory are the sam and bam/bai files, then:
 
     find *.bam -exec echo samtools index {} \; | sh
 
