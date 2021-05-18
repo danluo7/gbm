@@ -81,72 +81,73 @@ hisat2 -p 8 --rg-id=UHR_Rep1 --rg SM:UHR --rg LB:UHR_Rep1_ERCC-Mix1 --rg PL:ILLU
 
 ## Convert SAM files into BAM files
 
-cd $gbm_data/alignments
+    cd $gbm_data/alignments
 
-samtools sort -@ 8 -o 1_rep1.bam 1_rep1.sam
-samtools sort -@ 8 -o 1_rep2.bam 1_rep2.sam
+    samtools sort -@ 8 -o 1_rep1.bam 1_rep1.sam
+    samtools sort -@ 8 -o 1_rep2.bam 1_rep2.sam
 
-samtools sort -@ 8 -o 2_rep1.bam 2_rep1.sam
-samtools sort -@ 8 -o 2_rep2.bam 2_rep2.sam
+    samtools sort -@ 8 -o 2_rep1.bam 2_rep1.sam
+    samtools sort -@ 8 -o 2_rep2.bam 2_rep2.sam
 
-samtools sort -@ 8 -o 3_rep1.bam 3_rep1.sam
-samtools sort -@ 8 -o 3_rep2.bam 3_rep2.sam
+    samtools sort -@ 8 -o 3_rep1.bam 3_rep1.sam
+    samtools sort -@ 8 -o 3_rep2.bam 3_rep2.sam
 
-samtools sort -@ 8 -o 4_rep1.bam 4_rep1.sam
-samtools sort -@ 8 -o 4_rep2.bam 4_rep2.sam
+    samtools sort -@ 8 -o 4_rep1.bam 4_rep1.sam
+    samtools sort -@ 8 -o 4_rep2.bam 4_rep2.sam
 
-samtools sort -@ 8 -o 5_rep1.bam 5_rep1.sam
-samtools sort -@ 8 -o 5_rep2.bam 5_rep2.sam
+    samtools sort -@ 8 -o 5_rep1.bam 5_rep1.sam
+    samtools sort -@ 8 -o 5_rep2.bam 5_rep2.sam
 
-samtools sort -@ 8 -o 6_rep1.bam 6_rep1.sam
-samtools sort -@ 8 -o 6_rep2.bam 6_rep2.sam
+    samtools sort -@ 8 -o 6_rep1.bam 6_rep1.sam
+    samtools sort -@ 8 -o 6_rep2.bam 6_rep2.sam
 
-samtools sort -@ 8 -o 7_rep1.bam 7_rep1.sam
-samtools sort -@ 8 -o 7_rep2.bam 7_rep2.sam
+    samtools sort -@ 8 -o 7_rep1.bam 7_rep1.sam
+    samtools sort -@ 8 -o 7_rep2.bam 7_rep2.sam
 
-samtools sort -@ 8 -o 8_rep1.bam 8_rep1.sam
-samtools sort -@ 8 -o 8_rep2.bam 8_rep2.sam
+    samtools sort -@ 8 -o 8_rep1.bam 8_rep1.sam
+    samtools sort -@ 8 -o 8_rep2.bam 8_rep2.sam
 
-samtools sort -@ 8 -o 9_rep1.bam 9_rep1.sam
-samtools sort -@ 8 -o 9_rep2.bam 9_rep2.sam
+    samtools sort -@ 8 -o 9_rep1.bam 9_rep1.sam
+    samtools sort -@ 8 -o 9_rep2.bam 9_rep2.sam
 
-samtools sort -@ 8 -o 10_rep1.bam 10_rep1.sam
-samtools sort -@ 8 -o 10_rep2.bam 10_rep2.sam
+    samtools sort -@ 8 -o 10_rep1.bam 10_rep1.sam
+    samtools sort -@ 8 -o 10_rep2.bam 10_rep2.sam
 
-samtools sort -@ 8 -o 11_rep1.bam 11_rep1.sam
-samtools sort -@ 8 -o 11_rep2.bam 11_rep2.sam
+    samtools sort -@ 8 -o 11_rep1.bam 11_rep1.sam
+    samtools sort -@ 8 -o 11_rep2.bam 11_rep2.sam
 
-samtools sort -@ 8 -o 12_rep1.bam 12_rep1.sam
-samtools sort -@ 8 -o 12_rep2.bam 12_rep2.sam
+    samtools sort -@ 8 -o 12_rep1.bam 12_rep1.sam
+    samtools sort -@ 8 -o 12_rep2.bam 12_rep2.sam
 
-samtools sort -@ 8 -o 13_rep1.bam 13_rep1.sam
-samtools sort -@ 8 -o 13_rep2.bam 13_rep2.sam
+    samtools sort -@ 8 -o 13_rep1.bam 13_rep1.sam
+    samtools sort -@ 8 -o 13_rep2.bam 13_rep2.sam
 
-samtools sort -@ 8 -o 14_rep1.bam 14_rep1.sam
-samtools sort -@ 8 -o 14_rep2.bam 14_rep2.sam
+    samtools sort -@ 8 -o 14_rep1.bam 14_rep1.sam
+    samtools sort -@ 8 -o 14_rep2.bam 14_rep2.sam
 
-samtools sort -@ 8 -o 15_rep1.bam 15_rep1.sam
-samtools sort -@ 8 -o 15_rep2.bam 15_rep2.sam
+    samtools sort -@ 8 -o 15_rep1.bam 15_rep1.sam
+    samtools sort -@ 8 -o 15_rep2.bam 15_rep2.sam
 
-samtools sort -@ 8 -o 16_rep1.bam 16_rep1.sam
-samtools sort -@ 8 -o 16_rep2.bam 16_rep2.sam
+    samtools sort -@ 8 -o 16_rep1.bam 16_rep1.sam
+    samtools sort -@ 8 -o 16_rep2.bam 16_rep2.sam
 
-samtools sort -@ 8 -o 17_rep1.bam 17_rep1.sam
-samtools sort -@ 8 -o 17_rep2.bam 17_rep2.sam
+    samtools sort -@ 8 -o 17_rep1.bam 17_rep1.sam
+    samtools sort -@ 8 -o 17_rep2.bam 17_rep2.sam
 
-samtools sort -@ 8 -o 18_rep1.bam 18_rep1.sam
-samtools sort -@ 8 -o 18_rep2.bam 18_rep2.sam
+    samtools sort -@ 8 -o 18_rep1.bam 18_rep1.sam
+    samtools sort -@ 8 -o 18_rep2.bam 18_rep2.sam
 
-samtools sort -@ 8 -o 19_rep1.bam 19_rep1.sam
-samtools sort -@ 8 -o 19_rep2.bam 19_rep2.sam
+    samtools sort -@ 8 -o 19_rep1.bam 19_rep1.sam
+    samtools sort -@ 8 -o 19_rep2.bam 19_rep2.sam
 
-samtools sort -@ 8 -o 20_rep1.bam 20_rep1.sam
-samtools sort -@ 8 -o 20_rep2.bam 20_rep2.sam
+    samtools sort -@ 8 -o 20_rep1.bam 20_rep1.sam
+    samtools sort -@ 8 -o 20_rep2.bam 20_rep2.sam
 
-samtools sort -@ 8 -o 21_rep1.bam 21_rep1.sam
-samtools sort -@ 8 -o 21_rep2.bam 21_rep2.sam
+    samtools sort -@ 8 -o 21_rep1.bam 21_rep1.sam
+    samtools sort -@ 8 -o 21_rep2.bam 21_rep2.sam
 
 
-Index bam files:
+Index bam files: make sure that the only files in the directory are the sam and bam/bai files, then:
 
+    find *.bam -exec echo samtools index {} \; | sh
 
