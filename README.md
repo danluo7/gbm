@@ -23,9 +23,11 @@ Also available from their FTP site ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/dat
 These 8 files together constitute the index: they are all that is needed to align reads to that reference. 
 
 
-For mouse mm10 genome hisat pre-built index:
+For mouse mm10 genome hisat2 pre-built index:
 
     wget https://genome-idx.s3.amazonaws.com/hisat/mm10_genome.tar.gz
+
+note: GRCm39 = mm39, and GRCm38 = mm10
 
 
 
@@ -43,15 +45,15 @@ For mouse reference UCSC mm10: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/b
     wget: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/mm10.fa.gz
     
 
-note: mm38 is the newest reference but isn't used by hisat2, since it came out after HISAT2 had published their prebuilt indexes: mouse reference UCSC mm39: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
-
+note: mouse reference UCSC mm39 is available in 2020 (9 years newer than 38) but not used by hisat2: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
+reason this matters: mm10 and GRCm38 are synonymous: https://github.com/kundajelab/atac_dnase_pipelines/issues/143 https://www.ncbi.nlm.nih.gov/assembly/GCF_000001635.20/ except: UCSC version will have chr* identifiers in the row names. 
 
 
 CAUTION: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/genes/mm10.ncbiRefSeq.gtf.gz serves as reference only for GENE LEVEL counts and NOT transcript level counts.
 
 
 Alternatively, UCSC's references are also hosted on S3 bucket: http://daehwankimlab.github.io/hisat2/download/
-note: mm10 and GRCm38 are synonymous: https://github.com/kundajelab/atac_dnase_pipelines/issues/143 https://www.ncbi.nlm.nih.gov/assembly/GCF_000001635.20/ except: UCSC version will have chr* identifiers in the row names
+
 
 
 ### alignment using hisat2 (which suceeded hisat and tophat)
