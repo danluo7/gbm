@@ -113,6 +113,12 @@ hisat2 -p 8 --rg-id=UHR_Rep1 --rg SM:UHR --rg LB:UHR_Rep1_ERCC-Mix1 --rg PL:ILLU
     samtools sort -@ 8 -o 10_rep1.bam 10_rep1.sam
     samtools sort -@ 8 -o 10_rep2.bam 10_rep2.sam
 
+
+
+
+
+
+
     samtools sort -@ 8 -o 11_rep1.bam 11_rep1.sam
     samtools sort -@ 8 -o 11_rep2.bam 11_rep2.sam
 
