@@ -43,7 +43,7 @@ For mouse reference UCSC mm10: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/b
     wget: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/mm10.fa.gz
     
 
-note: This is the newest reference but isn't used by hisat2, since it came out after HISAT2 had published their prebuilt indexes: mouse reference UCSC mm39: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
+note: mm38 is the newest reference but isn't used by hisat2, since it came out after HISAT2 had published their prebuilt indexes: mouse reference UCSC mm39: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
 
 
 
