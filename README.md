@@ -25,7 +25,10 @@ These 8 files together constitute the index: they are all that is needed to alig
 
 For mouse mm10 genome hisat2 pre-built index:
 
+    mkdir -p $gbm/RNA_REF_FA
+    cd $gbm/RNA_REF_FA
     wget https://genome-idx.s3.amazonaws.com/hisat/mm10_genome.tar.gz
+    tar -xzvf mm10_genome.tar.gz
 
 note: GRCm39 = mm39, and GRCm38 = mm10
 
@@ -40,10 +43,13 @@ File used by Andrew is:
     wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/genes/hg38.ncbiRefSeq.gtf.gz 
     gzip -d hg38.ncbiRefSeq.gtf.gz
 
+
 For mouse reference UCSC mm10: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/
 
-    wget: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/mm10.fa.gz
-    
+    mkdir -p $gbm/RNA_REF_GTF
+    cd $gbm/RNA_REF_GTF
+    wget: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/genes/mm10.ncbiRefSeq.gtf.gz
+    gzip -d mm10.ncbiRefSeq.gtf.gz
 
 note: mouse reference UCSC mm39 is available in 2020 (9 years newer than 38) but not used by hisat2: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
 reason this matters: mm10 and GRCm38 are synonymous: https://github.com/kundajelab/atac_dnase_pipelines/issues/143 https://www.ncbi.nlm.nih.gov/assembly/GCF_000001635.20/ except: UCSC version will have chr* identifiers in the row names. 
