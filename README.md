@@ -265,6 +265,29 @@ mouse ones
 ## Merge the bam files
 
 java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=1.bam INPUT=1_Rep1.bam INPUT=1_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=2.bam INPUT=2_Rep1.bam INPUT=2_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=3.bam INPUT=3_Rep1.bam INPUT=3_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=4.bam INPUT=4_Rep1.bam INPUT=4_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=5.bam INPUT=5_Rep1.bam INPUT=5_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=6.bam INPUT=6_Rep1.bam INPUT=6_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=7.bam INPUT=7_Rep1.bam INPUT=7_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=8.bam INPUT=8_Rep1.bam INPUT=8_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=9.bam INPUT=9_Rep1.bam INPUT=9_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=10.bam INPUT=10_Rep1.bam INPUT=10_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=11.bam INPUT=11_Rep1.bam INPUT=11_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=12.bam INPUT=12_Rep1.bam INPUT=12_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=13.bam INPUT=13_Rep1.bam INPUT=13_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=14.bam INPUT=14_Rep1.bam INPUT=14_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=15.bam INPUT=15_Rep1.bam INPUT=15_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=16.bam INPUT=16_Rep1.bam INPUT=16_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=17.bam INPUT=17_Rep1.bam INPUT=17_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=18.bam INPUT=18_Rep1.bam INPUT=18_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=19.bam INPUT=19_Rep1.bam INPUT=19_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=20.bam INPUT=20_Rep1.bam INPUT=20_Rep2.bam
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=21.bam INPUT=21_Rep1.bam INPUT=21_Rep2.bam
+
+
+
 
 
 
