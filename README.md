@@ -51,11 +51,8 @@ For mouse reference UCSC mm10: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/b
     wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/genes/mm10.ncbiRefSeq.gtf.gz
     gzip -d mm10.ncbiRefSeq.gtf.gz
 
-note: mouse reference UCSC mm39 became available in 2020 (9 years newer than 38) but not used by hisat2: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
+note: mouse reference UCSC mm39 became available in 2020 (mm38/mm10 came out in 2011) but not used by hisat2: https://hgdownload.soe.ucsc.edu/goldenPath/mm39/bigZips/
 reason this matters: mm10 and GRCm38 are synonymous: https://github.com/kundajelab/atac_dnase_pipelines/issues/143 https://www.ncbi.nlm.nih.gov/assembly/GCF_000001635.20/ except: UCSC version will have chr* identifiers in the row names. 
-
-
-CAUTION: https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/genes/mm10.ncbiRefSeq.gtf.gz serves as reference only for GENE LEVEL counts and NOT transcript level counts.
 
 
 Alternatively, UCSC's references are also hosted on S3 bucket: http://daehwankimlab.github.io/hisat2/download/
@@ -265,8 +262,17 @@ mouse ones
     samtools sort -@ 8 -o 19_rep2.bam 19_rep2.sam
 
 
+## Merge the bam files
 
-Index all bam files: make sure that the only files in the directory are the sam and bam/bai files, then:
+java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=1.bam INPUT=1_Rep1.bam INPUT=1_Rep2.bam
+
+
+
+
+## Index all bam files for IGV visualization
+Make sure that the only files in the directory are the sam and bam/bai files, then:
 
     find *.bam -exec echo samtools index {} \; | sh
+
+
 
