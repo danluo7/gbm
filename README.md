@@ -315,8 +315,8 @@ view the resulting flagstat:
 this takes the bam file, add expression estimates FPKM and TPM using the reference annotation GTF file as a guide, and gives an annotated gtf file for the sample.
     
   
-    mkdir -p $gbm/expression/stringtie/ref_only/
-    cd $gbm/expression/stringtie/ref_only/
+    mkdir -p $gbm_data/expression/stringtie/ref_only/
+    cd $gbm_data/expression/stringtie/ref_only/
 
 
     stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 1/transcripts.gtf -A 1/gene_abundances.tsv $gbm_data/alignments/1.bam
