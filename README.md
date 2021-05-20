@@ -295,6 +295,11 @@ mouse ones
 ## Index all bam files for IGV visualization
 Make sure that the only files in the directory are the sam and bam/bai files, then:
 
+can do:
+samtools index 1.bam
+samtools index 2.bam
+or:
+
     find *.bam -exec echo samtools index {} \; | sh
 
 
@@ -304,6 +309,8 @@ for example percent of unmapped reads
 
 	mkdir flagstat
 	samtools flagstat 1.bam > flagstat/1.bam.flagstat
+	samtools flagstat 2.bam > flagstat/2.bam.flagstat
+
 
 view the resulting flagstat: 
 	
