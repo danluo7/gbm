@@ -391,8 +391,8 @@ Extra options specified below:
 	’–idattr’ The feature ID used to identify the counts in the output table. The default, suitable for RNA-SEq and Ensembl GTF files, is gene_id.
 
 
-	mkdir -p $gbm/expression/htseq_counts
-	cd $gbm/expression/htseq_counts
+	mkdir -p $gbm_data/expression/htseq_counts
+	cd $gbm_data/expression/htseq_counts
 
 
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/1.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 1.tsv
