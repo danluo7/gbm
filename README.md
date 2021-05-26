@@ -478,20 +478,47 @@ for UNC lung mets:
 
 
 
-	join 12.tsv 13.tsv | join - 10.tsv | join - 11.tsv > GBMUNC_gene_read_counts_table_all.tsv
+	join 12.tsv 13.tsv | join - 10.tsv | join - 11.tsv > UNClung_gene_read_counts_table_all.tsv
+	
+
+for UNC GBMs:
+- 16 vs. 14
+- 16 vs. 15
+- 14 vs. 15
+.
+
+	join 16.tsv 14.tsv | join - 15.tsv > UNCGBM_gene_read_counts_table_all.tsv
 	
 	
 	
 	
 Creat a simple text file with just the header that will be used for the table:
 
-echo "GeneID E0771Br_invitro_1 E0771Br_invitro_2 E0771Br_slices" > E0771_header.txt
-echo "GeneID 011_invitro_1 011_invitro_2 011_slices_1 011_slices_2 011_organoids 011_tissue_1 011_tissue_2" > GBM011_header.txt
-echo "GeneID 024_invitro 024_slices 024_organoids 024_tissue" > GBM024_header.txt
-echo
+	echo "GeneID E0771Br_invitro_1 E0771Br_invitro_2 E0771Br_slices" > E0771_header.txt
+	echo "GeneID 011_invitro_1 011_invitro_2 011_slices_1 011_slices_2 011_organoids 011_tissue_1 011_tissue_2" > GBM011_header.txt
+	echo "GeneID 024_invitro 024_slices 024_organoids 024_tissue" > GBM024_header.txt
+	echo "GeneID UNClung_invitro_p0 UNClung_invitro_p4 UNClung_slice UNClung_tissue" > UNClung_header.txt
+	echo "GeneID UNCGBM_invitro UNCGBM_slice UNCGBM_tissue" > UNCGBM_header.txt
 
 
 
+Clean up a bit more, add a header, reformat the result as a tab delimited file. note: grep -v "__" is being used to filter out the summary lines at the end of the files that ht-seq count gives to summarize reads that had no feature, were ambiguous, did not align at all, did not align due to poor alignment quality, or the alignment was not unique.
+
+awk -v OFS="\t" '$1=$1' is using awk to replace the single space characters that were in the concatenated version of our header.txt and gene_read_counts_table_all.tsv with a tab character. -v is used to reset the variable OFS, which stands for Output Field Separator. By default, this is a single space. By specifying OFS="\t", we are telling awk to replace the single space with a tab. The '$1=$1' tells awk to reevaluate the input using the new output variable
 
 
+	cat E0771_header.txt E0771_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > E0771_gene_read_counts_table_all_final.tsv
+	cat GBM011_header.txt GBM011_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > GBM011_gene_read_counts_table_all_final.tsv
+	cat GBM024_header.txt GBM024_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > GBM024_gene_read_counts_table_all_final.tsv
+	cat UNClung_header.txt UNClung_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > UNClung_gene_read_counts_table_all_final.tsv
+	cat UNCGBM_header.txt UNCGBM_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > UNCGBM_gene_read_count_table_all_final.tsv
+	
+	head E0771_gene_read_counts_table_all_final.tsv | column -t
 
+remove files no longer needed
+	
+	rm -f E0771_gene_read_counts_table_all.tsv E0771_header.txt
+	
+or just delete these files manually 
+
+	head E0771_gene_read_counts_table_all_final.tsv | column -t
