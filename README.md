@@ -431,6 +431,10 @@ Pairs:
 for E0771Br:
 - (17, 18) vs. 19
 
+
+	mkdir -p $gbm/expression/htseq_counts
+	cd $gbm/expression/htseq_counts
+	
 	join 17.tsv 18.tsv | join - 19.tsv > E0771_gene_read_counts_table_all.tsv
 
 
@@ -442,8 +446,10 @@ for 011 GBM samples:
 - (1, 2) vs. (4, 5)
 - 3 vs. (4, 5)
 
-
-	join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv > GBM011_gene_read_counts_table_all.tsv
+	join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv | join - 3.tsv | join - 4.tsv | join - 5.tsv > GBM011_gene_read_counts_table_all.tsv
+	
+join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv > GBM011_invitro_vs_slice_gene_read_counts_table.tsv
+join 20.tsv 21.tsv | join - 3.tsv > GBM011_invitro_vs_organoids_gene_read_counts_table.tsv
 
 
 
@@ -456,7 +462,7 @@ for 024 GBM samples:
 - 6 vs. 9
 - 8 vs. 9
 
-
+	join 7.tsv 6.tsv | join - 8.tsv | join - 8.tsv | join - 9.tsv > GBM024_gene_read_counts_table_all.tsv
 
 
 for UNC lung mets:
@@ -465,4 +471,4 @@ for UNC lung mets:
 - 12 vs. 11
 - 10 vs. 11
 
-
+	join 12.tsv 13.tsv | join - 10.tsv | join - 11.tsv > GBMUNC_gene_read_counts_table_all.tsv
