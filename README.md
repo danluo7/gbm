@@ -479,3 +479,19 @@ for UNC lung mets:
 
 
 	join 12.tsv 13.tsv | join - 10.tsv | join - 11.tsv > GBMUNC_gene_read_counts_table_all.tsv
+	
+	
+	
+	
+Creat a simple text file with just the header that will be used for the table:
+
+echo "GeneID E0771Br_invitro_1 E0771Br_invitro_2 E0771Br_slices" > E0771_header.txt
+echo "GeneID 011_invitro_1 011_invitro_2 011_slices_1 011_slices_2 011_organoids 011_tissue_1 011_tissue_2" > GBM011_header.txt
+echo "GeneID 024_invitro 024_slices 024_organoids 024_tissue" > GBM024_header.txt
+echo
+
+
+
+
+
+
