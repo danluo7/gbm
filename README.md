@@ -429,7 +429,8 @@ Join the results for each replicate together and merge results files into a sing
 Pairs:
 
 for E0771Br:
-- (17, 18) vs. 19
+(17, 18) vs. 19
+
 
 
 	mkdir -p $gbm/expression/htseq_counts
@@ -445,6 +446,9 @@ for 011 GBM samples:
 - (1, 2) vs. 3
 - (1, 2) vs. (4, 5)
 - 3 vs. (4, 5)
+-
+
+    
 
 	join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv | join - 3.tsv | join - 4.tsv | join - 5.tsv > GBM011_gene_read_counts_table_all.tsv
 	
@@ -461,6 +465,7 @@ for 024 GBM samples:
 - 6 vs. 8
 - 6 vs. 9
 - 8 vs. 9
+-
 
 	join 7.tsv 6.tsv | join - 8.tsv | join - 8.tsv | join - 9.tsv > GBM024_gene_read_counts_table_all.tsv
 
@@ -470,5 +475,8 @@ for UNC lung mets:
 - 12 vs. 10
 - 12 vs. 11
 - 10 vs. 11
+.
+
+
 
 	join 12.tsv 13.tsv | join - 10.tsv | join - 11.tsv > GBMUNC_gene_read_counts_table_all.tsv
