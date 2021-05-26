@@ -431,7 +431,7 @@ Pairs:
 for E0771Br:
 - (17, 18) vs. 19
 
-join 17.tsv 18.tsv | join - 19.tsv > E0771_gene_read_counts_table_all.tsv
+	join 17.tsv 18.tsv | join - 19.tsv > E0771_gene_read_counts_table_all.tsv
 
 
 for 011 GBM samples:
@@ -441,10 +441,9 @@ for 011 GBM samples:
 - (1, 2) vs. 3
 - (1, 2) vs. (4, 5)
 - 3 vs. (4, 5)
-- 
-- 
-- 
-join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv > GBM011_gene_read_counts_table_all.tsv
+
+
+	join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv > GBM011_gene_read_counts_table_all.tsv
 
 
 
@@ -456,6 +455,9 @@ for 024 GBM samples:
 - 6 vs. 8
 - 6 vs. 9
 - 8 vs. 9
+
+
+
 
 for UNC lung mets:
 - 12 vs. 13
