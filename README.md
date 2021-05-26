@@ -433,7 +433,6 @@ for E0771Br:
 
 
 
-	mkdir -p $gbm/expression/htseq_counts
 	cd $gbm/expression/htseq_counts
 	
 	join 17.tsv 18.tsv | join - 19.tsv > E0771_gene_read_counts_table_all.tsv
