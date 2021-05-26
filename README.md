@@ -424,4 +424,43 @@ Extra options specified below:
 
 
 
+Join the results for each replicate together and merge results files into a single matrix for use in edgeR. Since edgeR only does pairwise comparisons, need to pair up the compared samples:
+
+Pairs:
+
+for E0771Br:
+- (17, 18) vs. 19
+
+join 17.tsv 18.tsv | join - 19.tsv > E0771_gene_read_counts_table_all.tsv
+
+
+for 011 GBM samples:
+- (20, 21) vs. (1, 2)
+- (20, 21) vs. 3
+- (20, 21) vs. (4, 5)
+- (1, 2) vs. 3
+- (1, 2) vs. (4, 5)
+- 3 vs. (4, 5)
+- 
+- 
+- 
+join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv > GBM011_gene_read_counts_table_all.tsv
+
+
+
+
+for 024 GBM samples:
+- 7 vs. 6
+- 7 vs. 8
+- 7 vs. 9
+- 6 vs. 8
+- 6 vs. 9
+- 8 vs. 9
+
+for UNC lung mets:
+- 12 vs. 13
+- 12 vs. 10
+- 12 vs. 11
+- 10 vs. 11
+
 
