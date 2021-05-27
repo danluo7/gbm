@@ -525,3 +525,64 @@ or just delete these files manually
 ## Perform A vs. B comparison, using all replicates, for known (reference only mode) transcripts
 
 (raw counts using htseq output will come later)
+
+	mkdir -p $gbm/de/ballgown/ref_only
+	cd $gbm/de/ballgown/ref_only/
+
+
+Use printf to create/print a table with ids, type (each sample is a type), and path to the file, as the header. Then n returns a new line.
+
+Bascially, need a table that needs to look like this to feed into R:
+
+ids type path to file 1 011 $gbm/expression/stringtie/1 2 011 $gbm/expression/stringtie/2 ... ...
+
+this is how the script should look like (without the enters inbetween each line):
+
+
+printf "\"ids\",\"type\",\"path
+\"\n\"011_invitro_1\",\"011\",\"$gbm/expression/stringtie/20
+\"\n\"011_invitro_2\",\"011\",\"$gbm/expression/stringtie/21
+\"\n\"011_slice_1\",\"011\",\"$gbm/expression/stringtie/1
+\"\n\"011_slice_2\",\"011\",\"$gbm/expression/stringtie/2
+\"\n\"011_organoids\",\"011\",\"$gbm/expression/stringtie/3
+\"\n\"011_tissue_1\",\"011\",\"$gbm/expression/stringtie/4
+\"\n\"011_tissue_2\",\"011\",\"$gbm/expression/stringtie/5
+
+\"\n\"024_invitro\",\"024\",\"$gbm/expression/stringtie/7
+\"\n\"024_slice\",\"024\",\"$gbm/expression/stringtie/6
+\"\n\"024_organoids\",\"024\",\"$gbm/expression/stringtie/8
+\"\n\"024_tissue\",\"024\",\"$gbm/expression/stringtie/9
+
+\"\n\"UNClung_invitro_1\",\"UNClung\",\"$gbm/expression/stringtie/12
+\"\n\"UNClung_invitro_2\",\"UNClung\",\"$gbm/expression/stringtie/13
+\"\n\"UNClung_slice\",\"UNClung\",\"$gbm/expression/stringtie/10
+\"\n\"UNClung_tissue\",\"UNClung\",\"$gbm/expression/stringtie/11
+
+\"\n\"UNCGBM_invitro\",\"UNCGBM\",\"$gbm/expression/stringtie/16
+\"\n\"UNCGBM_slice\",\"UNCGBM\",\"$gbm/expression/stringtie/14
+\"\n\"UNCGBM_tissue\",\"UNCGBM\",\"$gbm/expression/stringtie/15
+
+\"\n\"E0771Br_invitro_1\",\"E0771Br\",\"$gbm/expression/stringtie/17
+\"\n\"E0771Br_invitro_2\",\"E0771Br\",\"$gbm/expression/stringtie/18
+\"\n\"E0771Br_slice\",\"E0771Br\",\"$gbm/expression/stringtie/19
+
+
+
+script:
+
+	printf "\"ids\",\"type\",\"path\"\n\"011_invitro_1\",\"011\",\"$gbm/expression/stringtie/20\"\n\"011_invitro_2\",\"011\",\"$gbm/expression/stringtie/21\"\n\"011_slice_1\",\"011\",\"$gbm/expression/stringtie/1\"\n\"011_slice_2\",\"011\",\"$gbm/expression/stringtie/2\"\n\"011_organoids\",\"011\",\"$gbm/expression/stringtie/3\"\n\"011_tissue_1\",\"011\",\"$gbm/expression/stringtie/4\"\n\"011_tissue_2\",\"011\",\"$gbm/expression/stringtie/5\"\n\"024_invitro\",\"024\",\"$gbm/expression/stringtie/7\"\n\"024_slice\",\"024\",\"$gbm/expression/stringtie/6\"\n\"024_organoids\",\"024\",\"$gbm/expression/stringtie/8\"\n\"024_tissue\",\"024\",\"$gbm/expression/stringtie/9\"\n\"UNClung_invitro_1\",\"UNClung\",\"$gbm/expression/stringtie/12\"\n\"UNClung_invitro_2\",\"UNClung\",\"$gbm/expression/stringtie/13\"\n\"UNClung_slice\",\"UNClung\",\"$gbm/expression/stringtie/10\"\n\"UNClung_tissue\",\"UNClung\",\"$gbm/expression/stringtie/11\"\n\"UNCGBM_invitro\",\"UNCGBM\",\"$gbm/expression/stringtie/16\"\n\"UNCGBM_slice\",\"UNCGBM\",\"$gbm/expression/stringtie/14\"\n\"UNCGBM_tissue\",\"UNCGBM\",\"$gbm/expression/stringtie/15\"\n\"E0771Br_invitro_1\",\"E0771Br\",\"$gbm/expression/stringtie/17\"\n\"E0771Br_invitro_2\",\"E0771Br\",\"$gbm/expression/stringtie/18\"\n\"E0771Br_slice\",\"E0771Br\",\"$gbm/expression/stringtie/19
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
