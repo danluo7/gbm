@@ -99,6 +99,7 @@ LB = <Sample.ID>_<Index.Sequence> (to indentify if same library was used)
 
 PU = Platform Unit = {FLOWCELL_BARCODE}.{LANE}.{library-specific identifier}. This is the most specific definition for a group of reads.
 
+## At this point decide on naming conventions. Order the samples logically (ie. if samples 1 2 3 should be ordered 3 1 2, then in hisat2 put input sample file 1 > 3.bam, and sample file 2 > 1.bam etc. Then make a note of this change.
 
 
     hisat2 -p 8 --rg-id=HCTMMDRXY.1 --rg SM:1 --rg LB:1_TGGTAGAGAT+TGTTGTTCGT --rg PL:ILLUMINA --rg PU:HCTMMDRXY.1.TGGTAGAGAT+TGTTGTTCGT -x $gbm/RNA_REF_FA/hg38/genome --dta --rna-strandness FR -1 $gbm_data/6931_1_S1_L001_R1_001.fastq.gz -2 $gbm_data/6931_1_S1_L001_R2_001.fastq.gz -S $gbm_data/alignments/1_rep1.sam
@@ -530,76 +531,231 @@ or just delete these files manually
 	cd $gbm/de/ballgown/ref_only/
 
 
-Use printf to create/print a table with ids, type (each sample is a type), and path to the file, as the header. Then n returns a new line.
+Use printf to create/print a table with ids, type (each type of sample is a type), and path to the file, as the header. Then n returns a new line. 
+## note: id needs to match the file folder names created by stringtie
 
 Bascially, need a table that needs to look like this to feed into R:
 
-ids type path to file 1 011 $gbm/expression/stringtie/1 2 011 $gbm/expression/stringtie/2 ... ...
+ids type path to file 011_invitro_1 011 $gbm/expression/stringtie/1 011_invitro_2 011 $gbm/expression/stringtie/2 ... ...
 
 this is how the script should look like (without the enters inbetween each line):
 
 
-printf "\"ids\",\"type\",\"path
-\"\n\"011_invitro_1\",\"011\",\"$gbm/expression/stringtie/20
-\"\n\"011_invitro_2\",\"011\",\"$gbm/expression/stringtie/21
-\"\n\"011_slice_1\",\"011\",\"$gbm/expression/stringtie/1
-\"\n\"011_slice_2\",\"011\",\"$gbm/expression/stringtie/2
-\"\n\"011_organoids\",\"011\",\"$gbm/expression/stringtie/3
-\"\n\"011_tissue_1\",\"011\",\"$gbm/expression/stringtie/4
-\"\n\"011_tissue_2\",\"011\",\"$gbm/expression/stringtie/5
-\"\n" > 011_comp.csv
+
+pairwise comparisons for 011:
 
 printf "\"ids\",\"type\",\"path
-\"\n\"024_invitro\",\"024\",\"$gbm/expression/stringtie/7
-\"\n\"024_slice\",\"024\",\"$gbm/expression/stringtie/6
-\"\n\"024_organoids\",\"024\",\"$gbm/expression/stringtie/8
-\"\n\"024_tissue\",\"024\",\"$gbm/expression/stringtie/9
-\"\n" > 024_comp.csv
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n" > 011_invitro_vs_slice.csv
 
 printf "\"ids\",\"type\",\"path
-\"\n\"UNClung_invitro_1\",\"UNClung\",\"$gbm/expression/stringtie/12
-\"\n\"UNClung_invitro_2\",\"UNClung\",\"$gbm/expression/stringtie/13
-\"\n\"UNClung_slice\",\"UNClung\",\"$gbm/expression/stringtie/10
-\"\n\"UNClung_tissue\",\"UNClung\",\"$gbm/expression/stringtie/11
-\"\n" > UNClung_comp.csv
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n" > 011_invitro_vs_organoid.csv
+
 
 printf "\"ids\",\"type\",\"path
-\"\n\"UNCGBM_invitro\",\"UNCGBM\",\"$gbm/expression/stringtie/16
-\"\n\"UNCGBM_slice\",\"UNCGBM\",\"$gbm/expression/stringtie/14
-\"\n\"UNCGBM_tissue\",\"UNCGBM\",\"$gbm/expression/stringtie/15
-\"\n" > UNCGBM_comp.csv
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n" > 011_invitro_vs_tissue.csv
+
 
 printf "\"ids\",\"type\",\"path
-\"\n\"E0771Br_invitro_1\",\"E0771Br\",\"$gbm/expression/stringtie/17
-\"\n\"E0771Br_invitro_2\",\"E0771Br\",\"$gbm/expression/stringtie/18
-\"\n\"E0771Br_slice\",\"E0771Br\",\"$gbm/expression/stringtie/19
-\"\n" > E0771Br_comp.csv
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n" > 011_slice_vs_organoid.csv
 
 
-
-script:
-
-	printf "\"ids\",\"type\",\"path\"\n\"011_invitro_1\",\"011\",\"$gbm/expression/stringtie/20\"\n\"011_invitro_2\",\"011\",\"$gbm/expression/stringtie/21\"\n\"011_slice_1\",\"011\",\"$gbm/expression/stringtie/1\"\n\"011_slice_2\",\"011\",\"$gbm/expression/stringtie/2\"\n\"011_organoids\",\"011\",\"$gbm/expression/stringtie/3\"\n\"011_tissue_1\",\"011\",\"$gbm/expression/stringtie/4\"\n\"011_tissue_2\",\"011\",\"$gbm/expression/stringtie/5\"\n" > 011_comp.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"024_invitro\",\"024\",\"$gbm/expression/stringtie/7\"\n\"024_slice\",\"024\",\"$gbm/expression/stringtie/6\"\n\"024_organoids\",\"024\",\"$gbm/expression/stringtie/8\"\n\"024_tissue\",\"024\",\"$gbm/expression/stringtie/9\"\n" > 024_comp.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"UNClung_invitro_1\",\"UNClung\",\"$gbm/expression/stringtie/12\"\n\"UNClung_invitro_2\",\"UNClung\",\"$gbm/expression/stringtie/13\"\n\"UNClung_slice\",\"UNClung\",\"$gbm/expression/stringtie/10\"\n\"UNClung_tissue\",\"UNClung\",\"$gbm/expression/stringtie/11\"\n" > UNClung_comp.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"UNCGBM_invitro\",\"UNCGBM\",\"$gbm/expression/stringtie/16\"\n\"UNCGBM_slice\",\"UNCGBM\",\"$gbm/expression/stringtie/14\"\n\"UNCGBM_tissue\",\"UNCGBM\",\"$gbm/expression/stringtie/15\"\n" > UNCGBM_comp.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"E0771Br_invitro_1\",\"E0771Br\",\"$gbm/expression/stringtie/17\"\n\"E0771Br_invitro_2\",\"E0771Br\",\"$gbm/expression/stringtie/18\"\n\"E0771Br_slice\",\"E0771Br\",\"$gbm/expression/stringtie/19\"\n" > E0771Br_comp.csv
+printf "\"ids\",\"type\",\"path
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n" > 011_slice_vs_tissue.csv
 
 
-
-
-
+printf "\"ids\",\"type\",\"path
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n" > 011_organoid_vs_tissue.csv
 
 
 
 
+pairwise comparisons for 024:
+
+printf "\"ids\",\"type\",\"path
+\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7
+\"\n\"6\",\"024_slice\",\"$gbm/expression/stringtie/6
+\"\n" > 024_invitro_vs_slice.csv
+
+
+printf "\"ids\",\"type\",\"path
+\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7
+\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8
+\"\n" > 024_invitro_vs_organoid.csv
+
+
+printf "\"ids\",\"type\",\"path
+\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7
+\"\n\"9\",\"024_tissue\",\"$gbm/expression/stringtie/9
+\"\n" > 024_invitro_vs_tissue.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"6\",\"024_slice\",\"$gbm/expression/stringtie/6
+\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8
+\"\n" > 024_slice_vs_organoid.csv
+
+
+printf "\"ids\",\"type\",\"path
+\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8
+\"\n\"9\",\"024_tissue\",\"$gbm/expression/stringtie/9
+\"\n" > 024_organoid_vs_tissue.csv
 
 
 
+pairwise comparison for UNC lung
+
+printf "\"ids\",\"type\",\"path
+\"\n\"12\",\"UNClung_invitro_p0\",\"$gbm/expression/stringtie/12
+\"\n\"13\",\"UNClung_invitro_p4\",\"$gbm/expression/stringtie/13
+\"\n" > UNClung_invitro_vs_slice.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12
+\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13
+\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10
+\"\n" > UNClung_invitro_vs_slice.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12
+\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13
+\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11
+\"\n" > UNClung_invitro_vs_tissue.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10
+\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11
+\"\n" > UNClung_slice_vs_tissue.csv
+
+
+
+pairwise comparison of UNC GBM
+
+printf "\"ids\",\"type\",\"path
+\"\n\"16\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/16
+\"\n\"14\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/14
+\"\n" > UNCGBM_invitro_vs_slice.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"16\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/16
+\"\n\"15\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/15
+\"\n" > UNCGBM_invitro_vs_tissue.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"14\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/14
+\"\n\"15\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/15
+\"\n" > UNCGBM_slice_vs_tissue.csv
+
+
+pairwise comp of E0771
+
+printf "\"ids\",\"type\",\"path
+\"\n\"17\",\"E0771Br_invitro\",\"$gbm/expression/stringtie/17
+\"\n\"18\",\"E0771Br_invitro\",\"$gbm/expression/stringtie/18
+\"\n\"19\",\"E0771Br_slice\",\"$gbm/expression/stringtie/19
+\"\n" > E0771Br_invitro_vs_slice.csv
+
+
+
+script
+
+pairwise comparisons for 011:
+
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_invitro_vs_slice.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_invitro_vs_organoid.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_invitro_vs_tissue.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_slice_vs_organoid.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_slice_vs_tissue.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_organoid_vs_tissue.csv
+
+
+
+
+pairwise comparisons for 024:
+
+	printf "\"ids\",\"type\",\"path\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7\"\n\"6\",\"024_slice\",\"$gbm/expression/stringtie/6\"\n" > 024_invitro_vs_slice.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8\"\n" > 024_invitro_vs_organoid.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7\"\n\"9\",\"024_tissue\",\"$gbm/expression/stringtie/9\"\n" > 024_invitro_vs_tissue.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"6\",\"024_slice\",\"$gbm/expression/stringtie/6\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8\"\n" > 024_slice_vs_organoid.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8\"\n\"9\",\"024_tissue\",\"$gbm/expression/stringtie/9\"\n" > 024_organoid_vs_tissue.csv
+
+
+
+pairwise comparison for UNC lung
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro_p0\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro_p4\",\"$gbm/expression/stringtie/13\"\n" > UNClung_invitro_vs_slice.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10\"\n" > UNClung_invitro_vs_slice.csv
+
+	printf "\"ids\",\"type\",\"path
+	\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_invitro_vs_tissue.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_slice_vs_tissue.csv
+
+
+
+pairwise comparison of UNC GBM
+
+	printf "\"ids\",\"type\",\"path\"\n\"16\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/16\"\n\"14\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/14\"\n" > UNCGBM_invitro_vs_slice.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"16\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/16\"\n\"15\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/15\"\n" > UNCGBM_invitro_vs_tissue.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"14\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/14\"\n\"15\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/15\"\n" > UNCGBM_slice_vs_tissue.csv
+
+
+pairwise comp of E0771
+
+	printf "\"ids\",\"type\",\"path\"\n\"17\",\"E0771Br_invitro\",\"$gbm/expression/stringtie/17\"\n\"18\",\"E0771Br_invitro\",\"$gbm/expression/stringtie/18\"\n\"19\",\"E0771Br_slice\",\"$gbm/expression/stringtie/19\"\n" > E0771Br_invitro_vs_slice.csv
+
+
+
+start R and load libraries
+
+	R
+	library(ballgown)
+	library(genefilter)
+	library(dplyr)
+	library(devtools)
+
+
+Load phenotype data from the file just saved in the current working directory (will have to repeat all below steps for each comparison
+
+	pheno_data = read.csv("011_comp.csv")
+
+Load ballgown data structure and save it to a variable "bg"
+
+	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
+
+	bg
 
 
 
