@@ -716,8 +716,7 @@ pairwise comparison for UNC lung
 
 	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10\"\n" > UNClung_invitro_vs_slice.csv
 
-	printf "\"ids\",\"type\",\"path
-	\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_invitro_vs_tissue.csv
+	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_invitro_vs_tissue.csv
 
 	printf "\"ids\",\"type\",\"path\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_slice_vs_tissue.csv
 
