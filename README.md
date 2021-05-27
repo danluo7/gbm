@@ -521,4 +521,7 @@ remove files no longer needed
 	
 or just delete these files manually 
 
-	head E0771_gene_read_counts_table_all_final.tsv | column -t
+# Use Ballgown in R for differential expression (DE) analysis using output from Stringtie
+## Perform A vs. B comparison, using all replicates, for known (reference only mode) transcripts
+
+(raw counts using htseq output will come later)
