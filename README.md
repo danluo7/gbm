@@ -748,13 +748,104 @@ start R and load libraries
 
 Load phenotype data from the file just saved in the current working directory (will have to repeat all below steps for each comparison
 
-	pheno_data = read.csv("011_comp.csv")
+	pheno_data = read.csv("011_invitro_vs_slice.csv")
 
 Load ballgown data structure and save it to a variable "bg"
 
 	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
 
 	bg
+ballgown output: ballgown instance with 190734 transcripts and 4 samples
 
 
+Load all attributes including gene name, put in a table by using a transcript expression function from the ballgown library (texpr), feed it the ballgown library, all of it.
+
+	bg_table = texpr(bg, 'all')
+
+Then pull out just the gene names and gene id's. [, 9:10] means pull out all rows and just column 9 and 10. Keep in mind that the ncbi reference genomes gene id and gene names are the same, so column 9 and 10 will be the same. [, x,x] is essentially how to subset data within R. This table is used in later step for DE after merging the results.
+
+	bg_gene_names = unique(bg_table[, 9:10])
+	head(bg_gene_names)
+
+Save the ballgown object to a file, R data file, for later use, so later so don't have to load each sample from their directories.
+
+	save(bg, file='bg.rda')
+	
+
+# Perform differential expression (DE) analysis with no filtering
+
+creat a results object. Use function stattest, feed the ballgown object, tell it whta we want to look at is transcript data, and the covariate that it's gonna perform the DE on is type, which was created earlier in the table using the printf function. type was H460 vs H460_2G etc. Use getFC to get fold change. Use "meas" to use FPKM as measurement of the foldchange
+
+	results_transcripts = stattest(bg, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
+
+same thing with gene level data
+
+	results_genes = stattest(bg, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+
+	head(results_genes)
+
+if using ncbi's reference genome, this step isn't necessary. "gene name" and "id" are the same. Did this anyway to keep consistent with existing pipelines.
+
+This creates a new table of a merge between original results_gene table, and a specific column in bg_gene_names (which was created earlier using [,9:10]). This is done by matching the column "id" from the results_gene table with "gene_id" column in the bg_gene_names table, and append (via merge) into a new results_genes table.
+
+	results_genes = merge(results_genes, bg_gene_names, by.x=c("id"), by.y=c("gene_id"))
+
+save a tab delimited file for both transcript and gene results. separater is a tab, denoted by \t. No quotes around objects to be printed.
+
+	write.table(results_transcripts, "011_invitro_vs_slice_transcript_results.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+	write.table(results_genes, "011_invitro_vs_slice_gene_results.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+
+
+
+# Filter low-abundance genes. Removing all TRANSCRIPTS with a variance across the samples of less than one
+
+	bg_filt = subset (bg,"rowVars(texpr(bg)) > 1", genomesubset=TRUE)
+
+Load all attributes including gene name
+
+	bg_filt_table = texpr(bg_filt , 'all')
+	bg_filt_gene_names = unique(bg_filt_table[, 9:10])
+
+
+
+# Perform DE analysis now using the filtered data
+
+	results_transcripts = stattest(bg_filt, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = stattest(bg_filt, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = merge(results_genes, bg_filt_gene_names, by.x=c("id"), by.y=c("gene_id"))
+
+Output the filtered list of genes and transcripts and save to tab delimited files
+
+	write.table(results_transcripts, "011_invitro_vs_slice_transcript_results_filtered.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+	write.table(results_genes, "011_invitro_vs_slice_gene_results_filtered.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+
+Identify the significant genes with q-value < 0.05. Note that q-value is what most people will use to filter in a large dataset.
+
+	sig_transcripts = subset(results_transcripts, results_transcripts$qval<0.05)
+	sig_genes = subset(results_genes, results_genes$qval<0.05)
+
+	head(sig_genes)
+
+	nrow(sig_genes)
+	
+output: [1] 1302
+
+Output the signifant gene results to a pair of tab delimited files
+
+	write.table(sig_transcripts, "011_invitro_vs_slice_transcript_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+	write.table(sig_genes, "011_invitro_vs_slice_gene_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+
+	quit()
+
+
+
+	grep -v feature 011_invitro_vs_slice_gene_results_filtered.tsv | wc -l
+
+	grep -v feature 011_invitro_vs_slice_gene_results_sig.tsv | sort -rnk 3 | head -n 20 | column -t 	#Higher abundance in invitro
+	grep -v feature 011_invitro_vs_slice_gene_results_sig.tsv | sort -nk 3 | head -n 20 | column -t 	#Higher abundance in slices
+
+save the results into a new file with just the names of the genes (column 6)
+
+	grep -v feature 011_invitro_vs_slice_gene_results_sig.tsv | cut -f 6 | sed 's/\"//g' > 011_invitro_vs_slice_DE_genes.txt
+	head 011_invitro_vs_slice_DE_genes.txt
 
