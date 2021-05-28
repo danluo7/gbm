@@ -544,6 +544,30 @@ this is how the script should look like (without the enters inbetween each line)
 
 pairwise comparisons for 011:
 
+against invitro
+printf "\"ids\",\"type\",\"path
+\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n" > 011_tissue_vs_invitro.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n" > 011_slice_vs_invitro.csv
+
+printf "\"ids\",\"type\",\"path
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n" > 011_organoid_vs_invitro.csv
+
+
+
+against slice
 printf "\"ids\",\"type\",\"path
 \"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
 \"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
@@ -551,26 +575,31 @@ printf "\"ids\",\"type\",\"path
 \"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
 \"\n" > 011_invitro_vs_slice.csv
 
+
 printf "\"ids\",\"type\",\"path
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n" > 011_tissue_vs_slice.csv
+
+
+printf "\"ids\",\"type\",\"path
 \"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n" > 011_invitro_vs_organoid.csv
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n" > 011_organoid_vs_slice.csv
 
 
+
+
+against tissue
 printf "\"ids\",\"type\",\"path
 \"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
 \"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
 \"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
 \"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
 \"\n" > 011_invitro_vs_tissue.csv
-
-
-printf "\"ids\",\"type\",\"path
-\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
-\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n" > 011_slice_vs_organoid.csv
 
 
 printf "\"ids\",\"type\",\"path
@@ -586,6 +615,70 @@ printf "\"ids\",\"type\",\"path
 \"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
 \"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
 \"\n" > 011_organoid_vs_tissue.csv
+
+
+
+against organoid
+printf "\"ids\",\"type\",\"path
+\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
+\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n" > 011_invitro_vs_organoid.csv
+
+
+printf "\"ids\",\"type\",\"path
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n" > 011_slice_vs_organoid.csv
+
+
+printf "\"ids\",\"type\",\"path
+\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n" > 011_tissue_vs_organoid.csv
+
+
+printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_tissue_vs_invitro.csv
+
+printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_slice_vs_invitro.csv
+
+printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_organoid_vs_invitro.csv
+
+
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_invitro_vs_slice.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_tissue_vs_slice.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_organoid_vs_slice.csv
+
+
+
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_invitro_vs_tissue.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_slice_vs_tissue.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_organoid_vs_tissue.csv
+
+
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_invitro_vs_organoid.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_slice_vs_organoid.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_tissue_vs_organoid.csv
 
 
 
@@ -821,14 +914,14 @@ Output the filtered list of genes and transcripts and save to tab delimited file
 
 Identify the significant genes with q-value < 0.05. Note that q-value is what most people will use to filter in a large dataset.
 
-	sig_transcripts = subset(results_transcripts, results_transcripts$qval<0.05)
-	sig_genes = subset(results_genes, results_genes$qval<0.05)
+	sig_transcripts = subset(results_transcripts, results_transcripts$qval<0.23)
+	sig_genes = subset(results_genes, results_genes$qval<0.23)
 
 	head(sig_genes)
 
 	nrow(sig_genes)
 	
-output: [1] 1302
+output: [1] 3856
 
 Output the signifant gene results to a pair of tab delimited files
 
@@ -836,7 +929,7 @@ Output the signifant gene results to a pair of tab delimited files
 	write.table(sig_genes, "011_invitro_vs_slice_gene_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)
 
 	quit()
-
+	y
 
 
 	grep -v feature 011_invitro_vs_slice_gene_results_filtered.tsv | wc -l
@@ -848,4 +941,120 @@ save the results into a new file with just the names of the genes (column 6)
 
 	grep -v feature 011_invitro_vs_slice_gene_results_sig.tsv | cut -f 6 | sed 's/\"//g' > 011_invitro_vs_slice_DE_genes.txt
 	head 011_invitro_vs_slice_DE_genes.txt
+
+
+
+## In vitro vs. tissue R code
+
+
+R
+	library(ballgown)
+	library(genefilter)
+	library(dplyr)
+	library(devtools)
+
+
+
+	pheno_data = read.csv("011_invitro_vs_tissue.csv")
+
+
+
+	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
+
+	bg
+
+
+
+	bg_table = texpr(bg, 'all')
+
+
+
+	bg_gene_names = unique(bg_table[, 9:10])
+	head(bg_gene_names)
+
+
+
+	save(bg, file='bg.rda')
+	
+
+
+
+	results_transcripts = stattest(bg, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
+
+
+
+	results_genes = stattest(bg, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+
+	head(results_genes)
+
+
+
+
+	results_genes = merge(results_genes, bg_gene_names, by.x=c("id"), by.y=c("gene_id"))
+
+
+
+	write.table(results_transcripts, "011_invitro_vs_tissue_transcript_results.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+	write.table(results_genes, "011_invitro_vs_tissue_gene_results.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+
+
+
+
+
+	bg_filt = subset (bg,"rowVars(texpr(bg)) > 1", genomesubset=TRUE)
+
+
+
+	bg_filt_table = texpr(bg_filt , 'all')
+	bg_filt_gene_names = unique(bg_filt_table[, 9:10])
+
+
+
+
+
+	results_transcripts = stattest(bg_filt, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = stattest(bg_filt, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = merge(results_genes, bg_filt_gene_names, by.x=c("id"), by.y=c("gene_id"))
+
+
+
+	write.table(results_transcripts, "011_invitro_vs_tissue_transcript_results_filtered.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+	write.table(results_genes, "011_invitro_vs_tissue_gene_results_filtered.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+
+
+
+	sig_transcripts = subset(results_transcripts, results_transcripts$pval<0.05)
+	sig_genes = subset(results_genes, results_genes$pval<0.05)
+
+	head(sig_genes)
+
+	nrow(sig_genes)
+	
+
+
+
+
+	write.table(sig_transcripts, "011_invitro_vs_tissue_transcript_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+	write.table(sig_genes, "011_invitro_vs_tissue_gene_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)
+
+	quit()
+	n
+
+
+	grep -v feature 011_invitro_vs_tissue_gene_results_filtered.tsv | wc -l
+
+	grep -v feature 011_invitro_vs_tissue_gene_results_sig.tsv | sort -rnk 3 | head -n 20 | column -t 	#Higher abundance in invitro
+	grep -v feature 011_invitro_vs_tissue_gene_results_sig.tsv | sort -nk 3 | head -n 20 | column -t 	#Higher abundance in tissue
+
+
+
+	grep -v feature 011_invitro_vs_tissue_gene_results_sig.tsv | cut -f 6 | sed 's/\"//g' > 011_invitro_vs_tissue_DE_genes.txt
+	head 011_invitro_vs_tissue_DE_genes.txt
+
+
+
+
+## slices vs. tissue
+
+
 
