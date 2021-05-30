@@ -374,7 +374,9 @@ Could also view gene and trnscript level expression values in the two files gene
 	column -t 1/t_data.ctab | less -S
 	less -S -x20 1/gene_abundances.tsv
 
-## Parallel to Stringtie, can also run htseq-count on alignments to produce raw counts instead of FPKM/TPM values (what Stringtie outputs) for differential expression analysis
+
+# htseq for raw counts DE
+## Parallel to Stringtie (produces FPKM/TPM), can also run htseq-count on hisat2 alignments to produce raw counts (instead of FPKM/TPM values) for differential expression analysis
 
 
 htseq-count basic usage:
@@ -522,6 +524,13 @@ remove files no longer needed
 	
 or just delete these files manually 
 
+
+
+
+-------------------------
+
+
+
 # Use Ballgown in R for differential expression (DE) analysis using output from Stringtie
 ## Perform A vs. B comparison, using all replicates, for known (reference only mode) transcripts
 
@@ -561,9 +570,16 @@ printf "\"ids\",\"type\",\"path
 
 printf "\"ids\",\"type\",\"path
 \"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
 \"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
 \"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
 \"\n" > 011_organoid_vs_invitro.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_tissue_vs_invitro.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_slice_vs_invitro.csv
+
+	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_organoid_vs_invitro.csv
 
 
 
@@ -591,6 +607,14 @@ printf "\"ids\",\"type\",\"path
 \"\n" > 011_organoid_vs_slice.csv
 
 
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_invitro_vs_slice.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_tissue_vs_slice.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_organoid_vs_slice.csv
+
 
 
 against tissue
@@ -617,6 +641,14 @@ printf "\"ids\",\"type\",\"path
 \"\n" > 011_organoid_vs_tissue.csv
 
 
+	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_invitro_vs_tissue.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_slice_vs_tissue.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_organoid_vs_tissue.csv
+
 
 against organoid
 printf "\"ids\",\"type\",\"path
@@ -640,38 +672,6 @@ printf "\"ids\",\"type\",\"path
 \"\n" > 011_tissue_vs_organoid.csv
 
 
-	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_tissue_vs_invitro.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_slice_vs_invitro.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_organoid_vs_invitro.csv
-
-
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_invitro_vs_slice.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_tissue_vs_slice.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_organoid_vs_slice.csv
-
-
-
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_invitro_vs_tissue.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_slice_vs_tissue.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_organoid_vs_tissue.csv
-
-
-
-
 	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_invitro_vs_organoid.csv
 
 
@@ -679,6 +679,7 @@ printf "\"ids\",\"type\",\"path
 
 
 	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_tissue_vs_organoid.csv
+
 
 
 
@@ -768,65 +769,6 @@ printf "\"ids\",\"type\",\"path
 \"\n" > E0771Br_invitro_vs_slice.csv
 
 
-
-script
-
-pairwise comparisons for 011:
-
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_invitro_vs_slice.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_invitro_vs_organoid.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_invitro_vs_tissue.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n" > 011_slice_vs_organoid.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_slice_vs_tissue.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_organoid_vs_tissue.csv
-
-
-
-
-pairwise comparisons for 024:
-
-	printf "\"ids\",\"type\",\"path\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7\"\n\"6\",\"024_slice\",\"$gbm/expression/stringtie/6\"\n" > 024_invitro_vs_slice.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8\"\n" > 024_invitro_vs_organoid.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"7\",\"024_invitro\",\"$gbm/expression/stringtie/7\"\n\"9\",\"024_tissue\",\"$gbm/expression/stringtie/9\"\n" > 024_invitro_vs_tissue.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"6\",\"024_slice\",\"$gbm/expression/stringtie/6\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8\"\n" > 024_slice_vs_organoid.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"8\",\"024_organoid\",\"$gbm/expression/stringtie/8\"\n\"9\",\"024_tissue\",\"$gbm/expression/stringtie/9\"\n" > 024_organoid_vs_tissue.csv
-
-
-
-pairwise comparison for UNC lung
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro_p0\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro_p4\",\"$gbm/expression/stringtie/13\"\n" > UNClung_invitro_vs_slice.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10\"\n" > UNClung_invitro_vs_slice.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"12\",\"UNClung_invitro\",\"$gbm/expression/stringtie/12\"\n\"13\",\"UNClung_invitro\",\"$gbm/expression/stringtie/13\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_invitro_vs_tissue.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"10\",\"UNClung_slice\",\"$gbm/expression/stringtie/10\"\n\"11\",\"UNClung_tissue\",\"$gbm/expression/stringtie/11\"\n" > UNClung_slice_vs_tissue.csv
-
-
-
-pairwise comparison of UNC GBM
-
-	printf "\"ids\",\"type\",\"path\"\n\"16\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/16\"\n\"14\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/14\"\n" > UNCGBM_invitro_vs_slice.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"16\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/16\"\n\"15\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/15\"\n" > UNCGBM_invitro_vs_tissue.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"14\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/14\"\n\"15\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/15\"\n" > UNCGBM_slice_vs_tissue.csv
-
-
-pairwise comp of E0771
-
-	printf "\"ids\",\"type\",\"path\"\n\"17\",\"E0771Br_invitro\",\"$gbm/expression/stringtie/17\"\n\"18\",\"E0771Br_invitro\",\"$gbm/expression/stringtie/18\"\n\"19\",\"E0771Br_slice\",\"$gbm/expression/stringtie/19\"\n" > E0771Br_invitro_vs_slice.csv
 
 
 
@@ -947,7 +889,7 @@ save the results into a new file with just the names of the genes (column 6)
 ## In vitro vs. tissue R code
 
 
-R
+	R
 	library(ballgown)
 	library(genefilter)
 	library(dplyr)
@@ -1058,3 +1000,5 @@ R
 
 
 
+
+https://www.biovenn.nl/
