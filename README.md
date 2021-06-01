@@ -700,7 +700,7 @@ Do same for GBM 024 etc
 ## Launch R, set working directory, read in the count matrix tsv file created by htseq, and check dimensions of the file.
 
 	R --no-restore
-	working_dir = "~/workspace/rnaseq/de/htseq_counts"
+	working_dir = "~/workspace/gbm/de/htseq_counts"
 	setwd(working_dir)
 
 
