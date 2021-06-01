@@ -581,6 +581,86 @@ printf "\"ids\",\"type\",\"path
 
 	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_organoid_vs_invitro.csv
 
+R script (for slice vs in vitro comparison), rest in gbm folder.
+
+	R --no-restore
+	library(ballgown)
+	library(genefilter)
+	library(dplyr)
+	library(devtools)
+
+	pheno_data = read.csv("011_slice_vs_invitro.csv")     ###change me
+
+
+	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
+	bg
+
+
+	bg_table = texpr(bg, 'all')
+
+
+	bg_gene_names = unique(bg_table[, 9:10])
+	head(bg_gene_names)
+
+
+	save(bg, file='bg.rda')
+	
+
+	results_transcripts = stattest(bg, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
+
+
+	results_genes = stattest(bg, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+
+	head(results_genes)
+
+
+	results_genes = merge(results_genes, bg_gene_names, by.x=c("id"), by.y=c("gene_id"))
+
+	write.table(results_transcripts, "011_slice_vs_invitro_transcript_results.tsv", sep="\t", quote=FALSE, row.names = FALSE)    ###change me
+	write.table(results_genes, "011_slice_vs_invitro_gene_results.tsv", sep="\t", quote=FALSE, row.names = FALSE)                 ###change me
+
+
+	bg_filt = subset (bg,"rowVars(texpr(bg)) > 1", genomesubset=TRUE)
+
+
+	bg_filt_table = texpr(bg_filt , 'all')
+	bg_filt_gene_names = unique(bg_filt_table[, 9:10])
+
+
+	results_transcripts = stattest(bg_filt, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = stattest(bg_filt, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = merge(results_genes, bg_filt_gene_names, by.x=c("id"), by.y=c("gene_id"))
+
+
+	write.table(results_transcripts, "011_slice_vs_invitro_transcript_results_filtered.tsv", sep="\t", quote=FALSE, row.names = FALSE)   ###change me
+	write.table(results_genes, "011_slice_vs_invitro_results_filtered.tsv", sep="\t", quote=FALSE, row.names = FALSE)    ###change me
+	
+	sig_transcripts = subset(results_transcripts, results_transcripts$pval<0.05)
+	sig_genes = subset(results_genes, results_genes$pval<0.05)
+
+	head(sig_genes)
+
+	nrow(sig_genes)
+
+	write.table(sig_transcripts, "011_slice_vs_invitro_transcript_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)      ###change me
+	write.table(sig_genes, "011_slice_vs_invitro_gene_results_sig.tsv", sep="\t", quote=FALSE, row.names = FALSE)         ###change me
+
+	quit()
+	n
+
+	grep -v feature 011_slice_vs_invitro_gene_results_filtered.tsv | wc -l
+
+	grep -v feature 011_slice_vs_invitro_gene_results_sig.tsv | sort -rnk 3 | head -n 20 | column -t 	#Higher abundance in invitro
+	grep -v feature 011_slice_vs_invitro_gene_results_sig.tsv | sort -nk 3 | head -n 20 | column -t 	#Higher abundance in tissue
+
+
+
+	grep -v feature 011_slice_vs_invitro_gene_results_sig.tsv | cut -f 6 | sed 's/\"//g' > 011_slice_vs_invitro_DE_genes.txt
+
+	head 011_slice_vs_invitro_DE_genes.txt
+
+11 more scripts in gbm folder.
+
 
 
 against slice
