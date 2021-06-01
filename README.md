@@ -704,11 +704,14 @@ Do same for GBM 024 etc
 	setwd(working_dir)
 
 
-Doing 011 samples for multiple comparisons first.
+Doing 011 samples for slice vs in vitro comparisons first.
 
 	rawdata=read.table("~/workspace/gbm/expression/htseq_counts/GBM011_gene_read_counts_table_all_final.tsv", header=TRUE, stringsAsFactors=FALSE, row.names=1)
 
 	dim(rawdata)
+
+output: [1] 54651     7
+
 
 Require at least 1/6 of samples to have expressed count >= 10
 
@@ -735,12 +738,15 @@ Check dimensions again to see effect of filtering
 output: 
 
 load edgeR
+[1] 19379     7
+went from 54k to 19k. 
 
 	library('edgeR')
 
 make class labels
 
-	class <- c( rep("011_invitro",2), rep("011_slice",2), rep("011_organoid",1, rep("011_tissue",2) )
+	class <- c( rep("011_invitro",2), rep("011_slice",2), rep("011_organoid",1), rep("011_tissue",2) )
+
 
 Get common gene names (placeholder code for when I need to use ENSEMBL reference genomes instead of NCBI) in that case, will just need to do Gene=rownames(rawdata) Symbol=mapping[Gene,1] gene_annotations=cbind(Gene,Symbol)
 
@@ -798,7 +804,7 @@ Order by q-value
 
 Save table
 
-	write.table(out4, file="H460_DE_genes.txt", quote=FALSE, row.names=FALSE, sep="\t")
+	write.table(out4, file="011_DE_genes.txt", quote=FALSE, row.names=FALSE, sep="\t")
 
 q() then
 
