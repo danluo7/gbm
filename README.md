@@ -204,114 +204,114 @@ the following samples are E0771 mouse breast cancer mets to the brain, so need t
 
 ## Convert SAM files into BAM files
 
-   cd $gbm_data/alignments
+	cd $gbm_data/alignments
 
-samtools sort -@ 8 -o 1_rep1.bam 1_rep1.sam
-samtools sort -@ 8 -o 1_rep2.bam 1_rep2.sam
+	samtools sort -@ 8 -o 1_rep1.bam 1_rep1.sam
+	samtools sort -@ 8 -o 1_rep2.bam 1_rep2.sam
 
-samtools sort -@ 8 -o 2_rep1.bam 2_rep1.sam
-samtools sort -@ 8 -o 2_rep2.bam 2_rep2.sam
+	samtools sort -@ 8 -o 2_rep1.bam 2_rep1.sam
+	samtools sort -@ 8 -o 2_rep2.bam 2_rep2.sam
 
-samtools sort -@ 8 -o 3.bam 3.sam
+	samtools sort -@ 8 -o 3.bam 3.sam
 
-samtools sort -@ 8 -o 4.bam 4.sam
+	samtools sort -@ 8 -o 4.bam 4.sam
 
-samtools sort -@ 8 -o 5_rep1.bam 5_rep1.sam
-samtools sort -@ 8 -o 5_rep2.bam 5_rep2.sam
+	samtools sort -@ 8 -o 5_rep1.bam 5_rep1.sam
+	samtools sort -@ 8 -o 5_rep2.bam 5_rep2.sam
 
-samtools sort -@ 8 -o 6_rep1.bam 6_rep1.sam
-samtools sort -@ 8 -o 6_rep2.bam 6_rep2.sam
+	samtools sort -@ 8 -o 6_rep1.bam 6_rep1.sam
+	samtools sort -@ 8 -o 6_rep2.bam 6_rep2.sam
 
-samtools sort -@ 8 -o 7_rep1.bam 7_rep1.sam
-samtools sort -@ 8 -o 7_rep2.bam 7_rep2.sam
+	samtools sort -@ 8 -o 7_rep1.bam 7_rep1.sam
+	samtools sort -@ 8 -o 7_rep2.bam 7_rep2.sam
 
-samtools sort -@ 8 -o 8_rep1.bam 8_rep1.sam
-samtools sort -@ 8 -o 8_rep2.bam 8_rep2.sam
-
-
-
-
-
-samtools sort -@ 8 -o 9.bam 9.sam
-
-samtools sort -@ 8 -o 10.bam 10.sam
-
-samtools sort -@ 8 -o 11.bam 11.sam
-
-samtools sort -@ 8 -o 12.bam 12.sam
-
-samtools sort -@ 8 -o 13.bam 13.sam
-
-samtools sort -@ 8 -o 14.bam 14.sam
-
-samtools sort -@ 8 -o 15.bam 15.sam
-
-samtools sort -@ 8 -o 16.bam 16.sam
-
-
-
-
-samtools sort -@ 8 -o 17.bam 17.sam
-
-samtools sort -@ 8 -o 18.bam 18.sam
-
-samtools sort -@ 8 -o 19.bam 19.sam
-
-samtools sort -@ 8 -o 20.bam 20.sam
-
-samtools sort -@ 8 -o 21_rep1.bam 21_rep1.sam
-samtools sort -@ 8 -o 21_rep2.bam 21_rep2.sam
-
-samtools sort -@ 8 -o 22_rep1.bam 22_rep1.sam
-samtools sort -@ 8 -o 22_rep2.bam 22_rep2.sam
+	samtools sort -@ 8 -o 8_rep1.bam 8_rep1.sam
+	samtools sort -@ 8 -o 8_rep2.bam 8_rep2.sam
 
 
 
 
 
-samtools sort -@ 8 -o 23.bam 23.sam
+	samtools sort -@ 8 -o 9.bam 9.sam
 
-samtools sort -@ 8 -o 24.bam 24.sam
+	samtools sort -@ 8 -o 10.bam 10.sam
 
-samtools sort -@ 8 -o 25.bam 25.sam
+	samtools sort -@ 8 -o 11.bam 11.sam
 
-samtools sort -@ 8 -o 26.bam 26.sam
+	samtools sort -@ 8 -o 12.bam 12.sam
 
-samtools sort -@ 8 -o 27.bam 27.sam
+	samtools sort -@ 8 -o 13.bam 13.sam
 
-samtools sort -@ 8 -o 28.bam 28.sam
+	samtools sort -@ 8 -o 14.bam 14.sam
+
+	samtools sort -@ 8 -o 15.bam 15.sam
+
+	samtools sort -@ 8 -o 16.bam 16.sam
 
 
 
 
-samtools sort -@ 8 -o 29.bam 29.sam
+	samtools sort -@ 8 -o 17.bam 17.sam
 
-samtools sort -@ 8 -o 30.bam 30.sam
+	samtools sort -@ 8 -o 18.bam 18.sam
 
-samtools sort -@ 8 -o 31_rep1.bam 31_rep1.sam
-samtools sort -@ 8 -o 31_rep2.bam 31_rep2.sam
+	samtools sort -@ 8 -o 19.bam 19.sam
 
-samtools sort -@ 8 -o 32_rep1.bam 32_rep1.sam
-samtools sort -@ 8 -o 32_rep2.bam 32_rep2.sam
+	samtools sort -@ 8 -o 20.bam 20.sam
+
+	samtools sort -@ 8 -o 21_rep1.bam 21_rep1.sam
+	samtools sort -@ 8 -o 21_rep2.bam 21_rep2.sam
+
+	samtools sort -@ 8 -o 22_rep1.bam 22_rep1.sam
+	samtools sort -@ 8 -o 22_rep2.bam 22_rep2.sam
+
+
+
+
+
+	samtools sort -@ 8 -o 23.bam 23.sam
+
+	samtools sort -@ 8 -o 24.bam 24.sam
+
+	samtools sort -@ 8 -o 25.bam 25.sam
+
+	samtools sort -@ 8 -o 26.bam 26.sam
+
+	samtools sort -@ 8 -o 27.bam 27.sam
+
+	samtools sort -@ 8 -o 28.bam 28.sam
+
+
+
+
+	samtools sort -@ 8 -o 29.bam 29.sam
+
+	samtools sort -@ 8 -o 30.bam 30.sam
+
+	samtools sort -@ 8 -o 31_rep1.bam 31_rep1.sam
+	samtools sort -@ 8 -o 31_rep2.bam 31_rep2.sam
+
+	samtools sort -@ 8 -o 32_rep1.bam 32_rep1.sam
+	samtools sort -@ 8 -o 32_rep2.bam 32_rep2.sam
 
 
 
 ## Merge the bam files
 
 
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=1.bam INPUT=1_rep1.bam INPUT=1_rep2.bam
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=2.bam INPUT=2_rep1.bam INPUT=2_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=1.bam INPUT=1_rep1.bam INPUT=1_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=2.bam INPUT=2_rep1.bam INPUT=2_rep2.bam
 
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=5.bam INPUT=5_rep1.bam INPUT=5_rep2.bam
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=6.bam INPUT=6_rep1.bam INPUT=6_rep2.bam
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=7.bam INPUT=7_rep1.bam INPUT=7_rep2.bam
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=8.bam INPUT=8_rep1.bam INPUT=8_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=5.bam INPUT=5_rep1.bam INPUT=5_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=6.bam INPUT=6_rep1.bam INPUT=6_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=7.bam INPUT=7_rep1.bam INPUT=7_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=8.bam INPUT=8_rep1.bam INPUT=8_rep2.bam
 
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=21.bam INPUT=21_rep1.bam INPUT=21_rep2.bam
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=22.bam INPUT=22_rep1.bam INPUT=22_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=21.bam INPUT=21_rep1.bam INPUT=21_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=22.bam INPUT=22_rep1.bam INPUT=22_rep2.bam
 
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=31.bam INPUT=31_rep1.bam INPUT=31_rep2.bam
-java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=32.bam INPUT=32_rep1.bam INPUT=32_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=31.bam INPUT=31_rep1.bam INPUT=31_rep2.bam
+	java -Xmx2g -jar $PICARD MergeSamFiles OUTPUT=32.bam INPUT=32_rep1.bam INPUT=32_rep2.bam
 
 
 
