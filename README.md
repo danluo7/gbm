@@ -544,32 +544,22 @@ pairwise comparisons for 011:
 
 against invitro
 printf "\"ids\",\"type\",\"path
-\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
-\"\n" > 011_tissue_vs_invitro.csv
-
-printf "\"ids\",\"type\",\"path
 \"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
 \"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
+\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7
+\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8
 \"\n" > 011_slice_vs_invitro.csv
 
-printf "\"ids\",\"type\",\"path
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
-\"\n" > 011_organoid_vs_invitro.csv
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8\"\n" > 011_slice_vs_invitro.csv
 
-	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_tissue_vs_invitro.csv
+	
+...then do tissues vs invitro, organoid vs invitro
 
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_slice_vs_invitro.csv
 
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n" > 011_organoid_vs_invitro.csv
 
+
+
+	
 R script (for slice vs in vitro comparison), rest in gbm folder.
 
 	R --no-restore
@@ -760,6 +750,12 @@ Do same for GBM 024 etc
 
 
 
+
+
+
+
+
+
 # Parallel to Ballgown, also need to use edgeR for DE analysis
 
 	cd $gbm
@@ -771,6 +767,12 @@ Do same for GBM 024 etc
 	R --no-restore
 	working_dir = "~/workspace/gbm/de/htseq_counts"
 	setwd(working_dir)
+
+
+
+
+
+
 
 
 Doing 011 samples for slice vs in vitro comparisons first.
