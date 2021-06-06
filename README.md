@@ -349,49 +349,50 @@ view the resulting flagstat:
 this takes the bam file, add expression estimates FPKM and TPM using the reference annotation GTF file as a guide, and gives an annotated gtf file for the sample.
     
   
-	mkdir -p $gbm_data/expression/stringtie/ref_only/
-	cd $gbm_data/expression/stringtie/ref_only/
+	mkdir -p $gbm/expression/stringtie/ref_only/
+	cd $gbm/expression/stringtie/ref_only/
 
 
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 1/transcripts.gtf -A 1/gene_abundances.tsv $gbm_data/alignments/1.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 2/transcripts.gtf -A 2/gene_abundances.tsv $gbm_data/alignments/2.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 3/transcripts.gtf -A 3/gene_abundances.tsv $gbm_data/alignments/3.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 4/transcripts.gtf -A 4/gene_abundances.tsv $gbm_data/alignments/4.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 5/transcripts.gtf -A 5/gene_abundances.tsv $gbm_data/alignments/5.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 6/transcripts.gtf -A 6/gene_abundances.tsv $gbm_data/alignments/6.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 7/transcripts.gtf -A 7/gene_abundances.tsv $gbm_data/alignments/7.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 8/transcripts.gtf -A 8/gene_abundances.tsv $gbm_data/alignments/8.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 1/transcripts.gtf -A 1/gene_abundances.tsv $gbm/alignments/1.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 2/transcripts.gtf -A 2/gene_abundances.tsv $gbm/alignments/2.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 3/transcripts.gtf -A 3/gene_abundances.tsv $gbm/alignments/3.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 4/transcripts.gtf -A 4/gene_abundances.tsv $gbm/alignments/4.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 5/transcripts.gtf -A 5/gene_abundances.tsv $gbm/alignments/5.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 6/transcripts.gtf -A 6/gene_abundances.tsv $gbm/alignments/6.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 7/transcripts.gtf -A 7/gene_abundances.tsv $gbm/alignments/7.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 8/transcripts.gtf -A 8/gene_abundances.tsv $gbm/alignments/8.bam
 
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 9/transcripts.gtf -A 9/gene_abundances.tsv $gbm_data/alignments/9.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 10/transcripts.gtf -A 10/gene_abundances.tsv $gbm_data/alignments/10.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 11/transcripts.gtf -A 11/gene_abundances.tsv $gbm_data/alignments/11.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 12/transcripts.gtf -A 12/gene_abundances.tsv $gbm_data/alignments/12.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 13/transcripts.gtf -A 13/gene_abundances.tsv $gbm_data/alignments/13.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 14/transcripts.gtf -A 14/gene_abundances.tsv $gbm_data/alignments/14.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 15/transcripts.gtf -A 15/gene_abundances.tsv $gbm_data/alignments/15.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 16/transcripts.gtf -A 16/gene_abundances.tsv $gbm_data/alignments/16.bam
-
-
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 17/transcripts.gtf -A 17/gene_abundances.tsv $gbm_data/alignments/17.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 18/transcripts.gtf -A 18/gene_abundances.tsv $gbm_data/alignments/18.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 19/transcripts.gtf -A 19/gene_abundances.tsv $gbm_data/alignments/19.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 20/transcripts.gtf -A 20/gene_abundances.tsv $gbm_data/alignments/20.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/21.bam
-
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/22.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/23.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/24.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/25.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/26.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/27.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm_data/alignments/28.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 9/transcripts.gtf -A 9/gene_abundances.tsv $gbm/alignments/9.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 10/transcripts.gtf -A 10/gene_abundances.tsv $gbm/alignments/10.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 11/transcripts.gtf -A 11/gene_abundances.tsv $gbm/alignments/11.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 12/transcripts.gtf -A 12/gene_abundances.tsv $gbm/alignments/12.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 13/transcripts.gtf -A 13/gene_abundances.tsv $gbm/alignments/13.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 14/transcripts.gtf -A 14/gene_abundances.tsv $gbm/alignments/14.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 15/transcripts.gtf -A 15/gene_abundances.tsv $gbm/alignments/15.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 16/transcripts.gtf -A 16/gene_abundances.tsv $gbm/alignments/16.bam
 
 
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 17/transcripts.gtf -A 17/gene_abundances.tsv $gbm/alignments/17.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 18/transcripts.gtf -A 18/gene_abundances.tsv $gbm/alignments/18.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 19/transcripts.gtf -A 19/gene_abundances.tsv $gbm/alignments/19.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 20/transcripts.gtf -A 20/gene_abundances.tsv $gbm/alignments/20.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 21/transcripts.gtf -A 21/gene_abundances.tsv $gbm/alignments/21.bam
 
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 17/transcripts.gtf -A 17/gene_abundances.tsv $gbm_data/alignments/29.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 18/transcripts.gtf -A 18/gene_abundances.tsv $gbm_data/alignments/30.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 19/transcripts.gtf -A 19/gene_abundances.tsv $gbm_data/alignments/31.bam
-	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 19/transcripts.gtf -A 19/gene_abundances.tsv $gbm_data/alignments/32.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 22/transcripts.gtf -A 22/gene_abundances.tsv $gbm/alignments/22.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 23/transcripts.gtf -A 23/gene_abundances.tsv $gbm/alignments/23.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 24/transcripts.gtf -A 24/gene_abundances.tsv $gbm/alignments/24.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 25/transcripts.gtf -A 25/gene_abundances.tsv $gbm/alignments/25.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 26/transcripts.gtf -A 26/gene_abundances.tsv $gbm/alignments/26.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 27/transcripts.gtf -A 27/gene_abundances.tsv $gbm/alignments/27.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf -e -B -o 28/transcripts.gtf -A 28/gene_abundances.tsv $gbm/alignments/28.bam
+
+
+
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 29/transcripts.gtf -A 29/gene_abundances.tsv $gbm/alignments/29.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 30/transcripts.gtf -A 30/gene_abundances.tsv $gbm/alignments/30.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 31/transcripts.gtf -A 31/gene_abundances.tsv $gbm/alignments/31.bam
+	stringtie --fr -p 8 -G $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf -e -B -o 32/transcripts.gtf -A 32/gene_abundances.tsv $gbm/alignments/32.bam
+
 
 
 
@@ -442,105 +443,54 @@ Extra options specified below:
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/3.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 3.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/4.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 4.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/5.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 5.tsv
-
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/6.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 6.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/7.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 7.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/8.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 8.tsv
-	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/9.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 9.tsv
 
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/9.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 9.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/10.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 10.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/11.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 11.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/12.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 12.tsv
-
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/13.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 13.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/14.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 14.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/15.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 15.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/16.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 16.tsv
 
-	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/17.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 17.tsv
-	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/18.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 18.tsv
-	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/19.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 19.tsv
 
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/17.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 17.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/18.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 18.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/19.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 19.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/20.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 20.tsv
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/21.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 21.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/22.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 22.tsv
 
+
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/23.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 23.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/24.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 24.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/25.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 25.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/26.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 26.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/27.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 27.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/28.bam $gbm/RNA_REF_GTF/hg38.ncbiRefSeq.gtf > 28.tsv
+
+
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/29.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 29.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/30.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 30.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/31.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 31.tsv
+	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/32.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 32.tsv
 
 
 Join the results for each replicate together and merge results files into a single matrix for use in edgeR. Since edgeR only does pairwise comparisons, need to pair up the compared samples:
 
-Pairs:
-
-for E0771Br:
-(17, 18) vs. 19
-
-
-
-	cd $gbm/expression/htseq_counts
-	
-	join 17.tsv 18.tsv | join - 19.tsv > E0771_gene_read_counts_table_all.tsv
-
-
-for 011 GBM samples:
-- (20, 21) vs. (1, 2)
-- (20, 21) vs. 3
-- (20, 21) vs. (4, 5)
-- (1, 2) vs. 3
-- (1, 2) vs. (4, 5)
-- 3 vs. (4, 5)
--
-
-    
-
-	join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv | join - 3.tsv | join - 4.tsv | join - 5.tsv > GBM011_gene_read_counts_table_all.tsv
-	
-join 20.tsv 21.tsv | join - 1.tsv | join - 2.tsv > GBM011_invitro_vs_slice_gene_read_counts_table.tsv
-join 20.tsv 21.tsv | join - 3.tsv > GBM011_invitro_vs_organoids_gene_read_counts_table.tsv
 
 
 
 
-for 024 GBM samples:
-- 7 vs. 6
-- 7 vs. 8
-- 7 vs. 9
-- 6 vs. 8
-- 6 vs. 9
-- 8 vs. 9
--
-
-	join 7.tsv 6.tsv | join - 8.tsv | join - 8.tsv | join - 9.tsv > GBM024_gene_read_counts_table_all.tsv
-
-
-for UNC lung mets:
-- 12 vs. 13
-- 12 vs. 10
-- 12 vs. 11
-- 10 vs. 11
-.
 
 
 
-	join 12.tsv 13.tsv | join - 10.tsv | join - 11.tsv > UNClung_gene_read_counts_table_all.tsv
-	
 
-for UNC GBMs:
-- 16 vs. 14
-- 16 vs. 15
-- 14 vs. 15
-.
 
-	join 16.tsv 14.tsv | join - 15.tsv > UNCGBM_gene_read_counts_table_all.tsv
-	
-	
-	
-	
-Creat a simple text file with just the header that will be used for the table:
 
-	echo "GeneID E0771Br_invitro_1 E0771Br_invitro_2 E0771Br_slices" > E0771_header.txt
-	echo "GeneID 011_invitro_1 011_invitro_2 011_slices_1 011_slices_2 011_organoids 011_tissue_1 011_tissue_2" > GBM011_header.txt
-	echo "GeneID 024_invitro 024_slices 024_organoids 024_tissue" > GBM024_header.txt
-	echo "GeneID UNClung_invitro_p0 UNClung_invitro_p4 UNClung_slice UNClung_tissue" > UNClung_header.txt
-	echo "GeneID UNCGBM_invitro UNCGBM_slice UNCGBM_tissue" > UNCGBM_header.txt
 
 
 
