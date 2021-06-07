@@ -532,8 +532,9 @@ copy all of above for 024 sample:
 
 
 
+(DE of htseq results using EdgeR continues after Stringtie+Ballgown)
 
-(DE using edgeR with htseq results continues after Stringtie/Ballgown)
+
 -------------------------
 
 
