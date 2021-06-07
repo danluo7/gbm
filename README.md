@@ -481,9 +481,34 @@ Extra options specified below:
 
 Join the results for each replicate together and merge results files into a single matrix for use in edgeR. Since edgeR only does pairwise comparisons, need to pair up the compared samples:
 
+slice vs invitro: 
+
+	join 1.tsv 2.tsv | join - 7.tsv | join - 8.tsv > 011_slice_vs_invitro_gene_read_counts_table_all.tsv
+	
+tissue vs invitro:
+
+organoid vs invitro:
 
 
 
+
+invitro vs slice:
+
+tissue vs slice:
+
+organoid vs slice:
+
+
+
+
+slice vs tissue:
+
+organoid vs tissue:
+
+invitro vs tissue:
+
+
+copy all of above for 024 sample:
 
 
 
@@ -645,100 +670,58 @@ R script (for slice vs in vitro comparison), rest in gbm folder.
 against slice
 
 printf "\"ids\",\"type\",\"path
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
-\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
-\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+
 \"\n" > 011_invitro_vs_slice.csv
 
 
 printf "\"ids\",\"type\",\"path
-\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
-\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
-\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+
 \"\n" > 011_tissue_vs_slice.csv
 
 
-printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_organoid_vs_slice.csv
+
+printf "\"ids\",\"type\",\"path
 
 
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_invitro_vs_slice.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_tissue_vs_slice.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n" > 011_organoid_vs_slice.csv
+\"\n" > 011_organoid_vs_slice.csv
 
 
 
 against tissue
 printf "\"ids\",\"type\",\"path
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
-\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+
 \"\n" > 011_invitro_vs_tissue.csv
 
 
 printf "\"ids\",\"type\",\"path
-\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
-\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
-\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+
 \"\n" > 011_slice_vs_tissue.csv
 
 
 printf "\"ids\",\"type\",\"path
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1
-\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+
 \"\n" > 011_organoid_vs_tissue.csv
 
-
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_invitro_vs_tissue.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_slice_vs_tissue.csv
-
-	printf "\"ids\",\"type\",\"path\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n" > 011_organoid_vs_tissue.csv
 
 
 
 
 against organoid
 printf "\"ids\",\"type\",\"path
-\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20
-\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1
+
 \"\n" > 011_invitro_vs_organoid.csv
 
 
 printf "\"ids\",\"type\",\"path
-\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
-\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1
+
 \"\n" > 011_slice_vs_organoid.csv
 
 
 printf "\"ids\",\"type\",\"path
-\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1
+
 \"\n" > 011_tissue_vs_organoid.csv
 
 
-	printf "\"ids\",\"type\",\"path\"\n\"20\",\"011_invitro\",\"$gbm/expression/stringtie/20\"\n\"21\",\"011_invitro\",\"$gbm/expression/stringtie/21\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1\"\n" > 011_invitro_vs_organoid.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1\"\n" > 011_slice_vs_organoid.csv
-
-
-	printf "\"ids\",\"type\",\"path\"\n\"4\",\"011_tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"3_1\",\"011_organoid\",\"$gbm/expression/stringtie/3_1\"\n" > 011_tissue_vs_organoid.csv
 
 
 Visualize the overlapping genes lists via: https://www.biovenn.nl/
