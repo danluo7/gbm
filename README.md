@@ -479,12 +479,29 @@ Extra options specified below:
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/32.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 32.tsv
 
 
-Join the results for each replicate together and merge results files into a single matrix for use in edgeR. Since edgeR only does pairwise comparisons, need to pair up the compared samples:
+Join the results for each replicate together and merge results files into a single matrix for use in edgeR. Since edgeR only does pairwise comparisons, need to pair up the compared samples, then creat a simple text file with just the header that will be used for the table:
+
 
 slice vs invitro: 
 
 	join 1.tsv 2.tsv | join - 7.tsv | join - 8.tsv > 011_slice_vs_invitro_gene_read_counts_table_all.tsv
-	
+	echo "GeneID 1 2 7 8" > 011_slice_vs_invitro_header.txt
+
+Clean up a bit more, add a header, reformat the result as a tab delimited file. note: grep -v "__" is being used to filter out the summary lines at the end of the files that ht-seq count gives to summarize reads that had no feature, were ambiguous, did not align at all, did not align due to poor alignment quality, or the alignment was not unique.
+
+(note: awk -v OFS="\t" '$1=$1' is using awk to replace the single space characters that were in the concatenated version of our header.txt and gene_read_counts_table_all.tsv with a tab character. -v is used to reset the variable OFS, which stands for Output Field Separator. By default, this is a single space. By specifying OFS="\t", we are telling awk to replace the single space with a tab. The '$1=$1' tells awk to reevaluate the input using the new output variable)
+
+
+	cat 011_slice_vs_invitro_header.txt 011_slice_vs_invitro_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > 011_slice_vs_invitro_gene_read_counts_table_all_final.tsv
+
+
+	head 011_slice_vs_invitro_gene_read_counts_table_all_final.tsv | column -t
+
+	rm -f 011_slice_vs_invitro_header.txt 011_slice_vs_invitro_header.txt
+
+
+
+
 tissue vs invitro:
 
 organoid vs invitro:
@@ -508,35 +525,11 @@ organoid vs tissue:
 invitro vs tissue:
 
 
+
+
+
 copy all of above for 024 sample:
 
-
-
-
-
-
-
-
-
-
-Clean up a bit more, add a header, reformat the result as a tab delimited file. note: grep -v "__" is being used to filter out the summary lines at the end of the files that ht-seq count gives to summarize reads that had no feature, were ambiguous, did not align at all, did not align due to poor alignment quality, or the alignment was not unique.
-
-awk -v OFS="\t" '$1=$1' is using awk to replace the single space characters that were in the concatenated version of our header.txt and gene_read_counts_table_all.tsv with a tab character. -v is used to reset the variable OFS, which stands for Output Field Separator. By default, this is a single space. By specifying OFS="\t", we are telling awk to replace the single space with a tab. The '$1=$1' tells awk to reevaluate the input using the new output variable
-
-
-	cat E0771_header.txt E0771_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > E0771_gene_read_counts_table_all_final.tsv
-	cat GBM011_header.txt GBM011_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > GBM011_gene_read_counts_table_all_final.tsv
-	cat GBM024_header.txt GBM024_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > GBM024_gene_read_counts_table_all_final.tsv
-	cat UNClung_header.txt UNClung_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > UNClung_gene_read_counts_table_all_final.tsv
-	cat UNCGBM_header.txt UNCGBM_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > UNCGBM_gene_read_count_table_all_final.tsv
-	
-	head E0771_gene_read_counts_table_all_final.tsv | column -t
-
-remove files no longer needed
-	
-	rm -f E0771_gene_read_counts_table_all.tsv E0771_header.txt
-	
-or just delete these files manually 
 
 
 
