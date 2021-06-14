@@ -1,0 +1,8 @@
+how to mount server
+
+sudo apt install cifs_utils
+
+
+sudo mkdir /mnt/floyd_server/
+sudo mount -t cifs -o user=jl963,domain=dhe.duke.edu //duhsnas-pri.dhe.duke.edu/dusom_radonc_floyd/All_Staff /mnt/floyd_server/
+cd /mnt/floyd_server
