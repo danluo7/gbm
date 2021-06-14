@@ -484,7 +484,7 @@ Join the results for each replicate together and merge results files into a sing
 
 slice vs invitro: 
 
-	join 1.tsv 2.tsv | join - 7.tsv | join - 8.tsv > 011_slice_vs_invitro_gene_read_counts_table_all.tsv
+	join 1.tsv 2.tsv | join - 7.tsv | join - 8.tsv > GBM011_slice_vs_invitro_gene_read_counts_table_all.tsv
 	echo "GeneID 1 2 7 8" > 011_slice_vs_invitro_header.txt
 
 Clean up a bit more, add a header, reformat the result as a tab delimited file. note: grep -v "__" is being used to filter out the summary lines at the end of the files that ht-seq count gives to summarize reads that had no feature, were ambiguous, did not align at all, did not align due to poor alignment quality, or the alignment was not unique.
@@ -492,10 +492,10 @@ Clean up a bit more, add a header, reformat the result as a tab delimited file. 
 (note: awk -v OFS="\t" '$1=$1' is using awk to replace the single space characters that were in the concatenated version of our header.txt and gene_read_counts_table_all.tsv with a tab character. -v is used to reset the variable OFS, which stands for Output Field Separator. By default, this is a single space. By specifying OFS="\t", we are telling awk to replace the single space with a tab. The '$1=$1' tells awk to reevaluate the input using the new output variable)
 
 
-	cat 011_slice_vs_invitro_header.txt 011_slice_vs_invitro_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > 011_slice_vs_invitro_gene_read_counts_table_all_final.tsv
+	cat GBM011_slice_vs_invitro_header.txt GBM011_slice_vs_invitro_gene_read_counts_table_all.tsv | grep -v "__" | awk -v OFS="\t" '$1=$1' > 011_slice_vs_invitro_gene_read_counts_table_all_final.tsv
 
 
-	head 011_slice_vs_invitro_gene_read_counts_table_all_final.tsv | column -t
+	head GBM011_slice_vs_invitro_gene_read_counts_table_all_final.tsv | column -t
 
 	rm -f 011_slice_vs_invitro_header.txt 011_slice_vs_invitro_header.txt
 
@@ -553,15 +553,96 @@ Use printf to create/print a table with ids, type (each type of sample is a type
 
 Bascially, need a table that needs to look like this to feed into R:
 
-ids type path to file 011_invitro_1 011 $gbm/expression/stringtie/1 011_invitro_2 011 $gbm/expression/stringtie/2 ... ...
+ids type path-to-file-011_invitro_1 011 $gbm/expression/stringtie/1 011_invitro_2 011 $gbm/expression/stringtie/2 ... ...
 
-this is how the script should look like (without the enters inbetween each line):
+goal is to generate a header file to load into R, for ALL samples for principal component analysis (the simplest form of multidimentional scaling), and also a file for pairwise comparisons. since we have a ton of comparisisons, might just not do this for now and only do the PCA. 
+
+file for all 011 samples for PCA: (this is how the script should look like (without the enters inbetween each line):
+printf "\"ids\",\"type\",\"path
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
+\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
+\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6
+\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7
+\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8
+\"\n" > GBM011_all.csv
+
+
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8\"\n" > GBM011_all.csv
+
+	R --no-restore
+	library(ballgown)
+	library(genefilter)
+	library(dplyr)
+	library(devtools)
+	library(ggplot2)
+	library(gplots)
+	library(GenomicRanges)
+
+	pheno_data = read.csv("GBM011_all.csv")  
+
+
+	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
+	bg
+
+
+	bg_table = texpr(bg, 'all')
+
+
+	bg_gene_names = unique(bg_table[, 9:10])
+	head(bg_gene_names)
+
+
+	save(bg, file='bg.rda')
+
+	bg
+output: ballgown instance with 190734 transcripts and 8 samples
+
+
+	pdf(file="GBM011_R_output.pdf")
+
+	working_dir = "~/workspace/gbm/de/ballgown/ref_only"
+	setwd(working_dir)
+	dir()
+
+
+Import expression and differential expression results from the HISAT2/StringTie/Ballgown pipeline
+	
+	load('bg.rda')
+
+
+Load gene names for lookup later in the tutorial
+	
+	bg_table = texpr(bg, 'all')
+	bg_gene_names = unique(bg_table[, 9:10])
+
+
+Pull the gene_expression data frame from the ballgown object
+
+	gene_expression = as.data.frame(gexpr(bg))
+	head(gene_expression)
+
+View the column names
+
+	colnames(gene_expression)
+
+View the row names
+	
+	row.names(gene_expression)
+
+Determine the dimensions of the dataframe.  'dim()' will return the number of rows and columns
+
+	dim(gene_expression)
+
+
 
 
 
 pairwise comparisons for 011:
 
-against invitro
+against invitro:
 printf "\"ids\",\"type\",\"path
 \"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
 \"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
@@ -603,6 +684,7 @@ R script (for slice vs in vitro comparison), rest in gbm folder.
 
 	save(bg, file='bg.rda')
 	
+The stattest function below will require pairwise comparisons and can't know multiple comparisons at once
 
 	results_transcripts = stattest(bg, feature="transcript", covariate="type", getFC=TRUE, meas="FPKM")
 
@@ -754,16 +836,16 @@ Do same for GBM 024 etc
 
 Doing 011 samples for slice vs in vitro comparisons first.
 
-	rawdata=read.table("~/workspace/gbm/expression/htseq_counts/GBM011_gene_read_counts_table_all_final.tsv", header=TRUE, stringsAsFactors=FALSE, row.names=1)
+	rawdata=read.table("~/workspace/gbm/expression/htseq_counts/GBM011_slice_vs_invitro_gene_read_counts_table_all_final.tsv", header=TRUE, stringsAsFactors=FALSE, row.names=1)
 
 	dim(rawdata)
 
-output: [1] 54651     7
+output: [1] 54651     4
 
 
-Require at least 1/6 of samples to have expressed count >= 10
+Require at least 1/4 of samples to have expressed count >= 10
 
-	sample_cutoff <- (1/6)
+	sample_cutoff <- (1/4)
 	count_cutoff <- 10
 
 Define a function to calculate the fraction of values expressed above the count cutoff
@@ -786,14 +868,14 @@ Check dimensions again to see effect of filtering
 output: 
 
 load edgeR
-[1] 19379     7
-went from 54k to 19k. 
+[1] 18302     4
+went from 54k to 18k. 
 
 	library('edgeR')
 
 make class labels
 
-	class <- c( rep("011_invitro",2), rep("011_slice",2), rep("011_organoid",1), rep("011_tissue",2) )
+	class <- c( rep("011_invitro",2), rep("011_slice",2) )
 
 
 Get common gene names (placeholder code for when I need to use ENSEMBL reference genomes instead of NCBI) in that case, will just need to do Gene=rownames(rawdata) Symbol=mapping[Gene,1] gene_annotations=cbind(Gene,Symbol)
@@ -862,3 +944,52 @@ q() then
 
 
 
+(not sure what happened to the video of first half of this tutorial: https://rnabio.org/module-03-expression/0003/04/01/DE_Visualization/)
+
+
+
+starting from "supplementary R analysis:
+
+# creat multidimention plots to visualize differences between samples and replicates within samples
+
+	cd $gbm/de/ballgown/ref_only/
+	R --no-restore
+	library(ggplot2)
+	library(gplots)
+	library(GenomicRanges)
+	library(ballgown)
+	
+	
+	pdf(file="GBM011_R_output.pdf")
+	
+
+Import the gene expression data from the HISAT2/StringTie/Ballgown folder
+
+Set working directory where results files exist
+
+	working_dir = "~/workspace/gbm/de/ballgown/ref_only"
+	setwd(working_dir)
+
+List the current contents of this directory (same as ls in terminal)
+	
+	dir()
+
+Import expression and differential expression results from the HISAT2/StringTie/Ballgown pipeline
+
+	load('bg.rda')
+
+View a summary of the ballgown object
+	bg
+
+Load gene names for lookup later in the tutorial
+
+	bg_table = texpr(bg, 'all')
+	bg_gene_names = unique(bg_table[, 9:10])
+
+
+Pull the gene_expression data frame from the ballgown object
+	
+	gene_expression = as.data.frame(gexpr(bg))
+	
+	
+	
