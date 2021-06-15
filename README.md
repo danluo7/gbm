@@ -782,7 +782,10 @@ Convert correlation to distance, and use 'multi-dimensional scaling' to plot the
 	points(mds$points[,1], mds$points[,2], col="grey", cex=2, pch=16)
 	text(mds$points[,1], mds$points[,2], short_names, col=data_colors)
 
+Calculate the differential expression results including significance
 
+	results_genes = stattest(bg, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = merge(results_genes,bg_gene_names,by.x=c("id"),by.y=c("gene_id"))
 
 
 
