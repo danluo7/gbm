@@ -1,0 +1,179 @@
+Generate a header file to load into R, for ALL samples for principal component analysis (the simplest form of multidimentional scaling), and also a file for pairwise comparisons. since we have a ton of comparisisons, might just not do this for now and only do the PCA. 
+
+file for all 024 samples for PCA: (this is how the script should look like (without the enters inbetween each line):
+
+
+printf "\"ids\",\"type\",\"path\"\n\"9\",\"024_slice\",\"$gbm/expression/stringtie/9\"\n\"10\",\"024_slice\",\"$gbm/expression/stringtie/10\"\n\"11\",\"024_organoid\",\"$gbm/expression/stringtie/11\"\n\"12\",\"024_organoid\",\"$gbm/expression/stringtie/12\"\n\"13\",\"024_tissue\",\"$gbm/expression/stringtie/13\"\n\"14\",\"024_tissue\",\"$gbm/expression/stringtie/14\"\n\"15\",\"024_invitro\",\"$gbm/expression/stringtie/15\"\n\"16\",\"024_invitro\",\"$gbm/expression/stringtie/16\"\n" > GBM024_all.csv
+
+
+	R --no-restore
+	library(ballgown)
+	library(genefilter)
+	library(dplyr)
+	library(devtools)
+	library(ggplot2)
+	library(gplots)
+	library(GenomicRanges)
+
+	pheno_data = read.csv("GBM024_all.csv")  
+
+
+	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
+	bg
+
+
+	bg_table = texpr(bg, 'all')
+
+
+	bg_gene_names = unique(bg_table[, 9:10])
+	head(bg_gene_names)
+
+
+	save(bg, file='bg.rda')
+
+	bg
+
+
+
+	pdf(file="GBM024_R_output.pdf")
+
+	working_dir = "~/workspace/gbm/de/ballgown/ref_only"
+	setwd(working_dir)
+	dir()
+
+
+Import expression and differential expression results from the HISAT2/StringTie/Ballgown pipeline
+	
+	load('bg.rda')
+
+
+
+	
+	bg_table = texpr(bg, 'all')
+	bg_gene_names = unique(bg_table[, 9:10])
+
+
+
+
+	gene_expression = as.data.frame(gexpr(bg))
+	head(gene_expression)
+
+
+
+	colnames(gene_expression)
+
+
+	
+	row.names(gene_expression)
+
+
+
+	dim(gene_expression)
+
+
+
+
+	i = row.names(gene_expression) == "BRD4"
+	gene_expression[i,]
+
+
+
+
+
+
+
+
+
+
+	transcript_gene_table = indexes(bg)$t2g
+	head(transcript_gene_table)
+	
+	length(row.names(transcript_gene_table)) #Transcript count
+	length(unique(transcript_gene_table[,"g_id"])) #Unique Gene count
+
+
+
+
+
+
+
+
+	counts=table(transcript_gene_table[,"g_id"])
+	c_one = length(which(counts == 1))
+	c_more_than_one = length(which(counts > 1))
+	c_max = max(counts)
+	hist(counts, breaks=50, col="bisque4", xlab="Transcripts per gene", main="Distribution of transcript count per gene")
+	legend_text = c(paste("Genes with one transcript =", c_one), paste("Genes with more than one transcript =", c_more_than_one), paste("Max transcripts for single gene = ", c_max))
+	legend("topright", legend_text, lty=NULL)
+
+
+
+
+
+
+
+	full_table <- texpr(bg , 'all')
+	hist(full_table$length, breaks=500, xlab="Transcript length (bp)", main="Distribution of transcript lengths", col="steelblue")
+
+
+
+
+
+
+
+	min_nonzero=1
+
+
+
+	data_columns=c(1:8)
+	short_names=c("slice_1","slice2","organoid_1","organoid_2","tissue_1","tissue_2","invitro_1","invitro_2")
+
+
+	colors()
+	data_colors=c("tomato1","tomato2","royalblue1","royalblue2","seagreen1","seagreen2","grey1","grey2")
+
+	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for all 8 sample libraries")
+
+
+
+
+
+
+	gene_expression[,"sum"]=apply(gene_expression[,data_columns], 1, sum)
+
+
+
+	i = which(gene_expression[,"sum"] > 10)
+
+
+
+
+	r=cor(gene_expression[i,data_columns], use="pairwise.complete.obs", method="pearson")
+	r
+	
+
+
+
+
+	
+	d=1-r
+	mds=cmdscale(d, k=2, eig=TRUE)
+	par(mfrow=c(1,1))
+	plot(mds$points, type="n", xlab="", ylab="", main="MDS distance plot (all non-zero genes)", xlim=c(-0.4,0.4), ylim=c(-0.4,0.4))
+	points(mds$points[,1], mds$points[,2], col="grey", cex=2, pch=16)
+	text(mds$points[,1], mds$points[,2], short_names, col=data_colors)
+
+
+
+
+
+
+Calculate the differential expression results including significance
+
+	results_genes = stattest(bg, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
+	results_genes = merge(results_genes,bg_gene_names,by.x=c("id"),by.y=c("gene_id"))
+
+
+
+
+
