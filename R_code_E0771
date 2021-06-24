@@ -9,6 +9,9 @@ printf "\"ids\",\"type\",\"path
 \"\n" > E0771_slice_vs_invitro.csv
 
 
+
+cd $gbm/de/ballgown/ref_only/
+
 printf "\"ids\",\"type\",\"path\"\n\"29\",\"E0771_slice\",\"$gbm/expression/stringtie/29\"\n\"30\",\"E0771_slice\",\"$gbm/expression/stringtie/30\"\n\"31\",\"E0771_invitro\",\"$gbm/expression/stringtie/31\"\n\"32\",\"E0771_invitro\",\"$gbm/expression/stringtie/32\"\n" > E0771_slice_vs_invitro.csv
 
 
