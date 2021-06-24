@@ -1,8 +1,12 @@
 
 	cd $gbm/de/ballgown/ref_only/
 
-  printf "\"ids\",\"type\",\"path\"\n\"17\",\"UNCLung_slice\",\"$gbm/expression/stringtie/17\"\n\"18\",\"UNCLung_slice\",\"$gbm/expression/stringtie/18\"\n\"19\",\"UNCLung_tissue\",\"$gbm/expression/stringtie/19\"\n\"20\",\"UNCLung_tissue\",\"$gbm/expression/stringtie/20\"\n\"21\",\"UNCLung_invitro\",\"$gbm/expression/stringtie/21\"\n\"22\",\"UNCLung_invitro\",\"$gbm/expression/stringtie/22\"\n" > UNCLung_all.csv
-  
+
+
+printf "\"ids\",\"type\",\"path\"\n\"23\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/23\"\n\"24\",\"UNCGBM_slice\",\"$gbm/expression/stringtie/24\"\n\"25\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/25\"\n\"26\",\"UNCGBM_tissue\",\"$gbm/expression/stringtie/26\"\n\"27\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/27\"\n\"28\",\"UNCGBM_invitro\",\"$gbm/expression/stringtie/28\"\n" > UNCGBM_all.csv
+
+
+
 	R --no-restore
 	library(ballgown)
 	library(genefilter)
@@ -12,7 +16,7 @@
 	library(gplots)
 	library(GenomicRanges)
 
-	pheno_data = read.csv("UNCLung_all.csv")  
+	pheno_data = read.csv("UNCGBM_all.csv")  
 
 
 	bg = ballgown(samples=as.vector(pheno_data$path), pData=pheno_data)
@@ -32,7 +36,7 @@
 
 
 
-	pdf(file="UNCLung_R_output.pdf")
+	pdf(file="UNCGMB_R_output.pdf")
 
 	working_dir = "~/workspace/gbm/de/ballgown/ref_only"
 	setwd(working_dir)
