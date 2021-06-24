@@ -569,6 +569,7 @@ printf "\"ids\",\"type\",\"path
 \"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8
 \"\n" > GBM011_all.csv
 
+	cd $gbm/de/ballgown/ref_only/
 
 	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8\"\n" > GBM011_all.csv
 
@@ -643,6 +644,10 @@ Just for fun, check BRD4 expression across all 8 samples:
 	gene_expression[i,]
 
 
+
+
+
+
 Load the transcript to gene index from the ballgown object. Each row of data represents a transcript. Many of these transcripts represent the same gene. Determine the numbers of transcripts and unique genes  
 
 
@@ -704,7 +709,7 @@ Set the columns for finding FPKM and create shorter names for figures
 
 Plot range of values and general distribution of FPKM values for all 8 libraries
 
-Create boxplots using different colors. Display on a log2 scale and add the minimum non-zero value to avoid log2(0). Note that the bold horizontal line on each boxplot is the median.
+Create boxplots using different colors by setting storing the colors of the columns in a variable called data_colors. then display on a log2 scale and add the minimum non-zero value to avoid log2(0). Note that the bold horizontal line on each boxplot is the median.
 
 
 	colors()
@@ -789,15 +794,17 @@ Calculate the differential expression results including significance
 
 
 
+close out the PDF
+dev.off()
+
+
+
+R script for other samples are located in other files in the same danluo7/gbm project folder
 
 
 
 
-
-
-
-
-pairwise comparisons for 011:
+# Could also do pairwise comparisons for 011 (but has to be two at a time):
 
 against invitro:
 printf "\"ids\",\"type\",\"path
@@ -808,13 +815,6 @@ printf "\"ids\",\"type\",\"path
 \"\n" > 011_slice_vs_invitro.csv
 
 	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8\"\n" > 011_slice_vs_invitro.csv
-
-	
-...then do tissues vs invitro, organoid vs invitro
-
-
-
-
 
 	
 R script (for slice vs in vitro comparison), rest in gbm folder.
@@ -900,72 +900,6 @@ The stattest function below will require pairwise comparisons and can't know mul
 
 
 
-against slice
-
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_invitro_vs_slice.csv
-
-
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_tissue_vs_slice.csv
-
-
-
-printf "\"ids\",\"type\",\"path
-
-
-\"\n" > 011_organoid_vs_slice.csv
-
-
-
-against tissue
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_invitro_vs_tissue.csv
-
-
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_slice_vs_tissue.csv
-
-
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_organoid_vs_tissue.csv
-
-
-
-
-
-against organoid
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_invitro_vs_organoid.csv
-
-
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_slice_vs_organoid.csv
-
-
-printf "\"ids\",\"type\",\"path
-
-\"\n" > 011_tissue_vs_organoid.csv
-
-
-
-
-Visualize the overlapping genes lists via: https://www.biovenn.nl/
-
-
-
-Do same for GBM 024 etc
-
-
-
-
 
 
 
@@ -985,13 +919,7 @@ Do same for GBM 024 etc
 	setwd(working_dir)
 
 
-
-
-
-
-
-
-Doing 011 samples for slice vs in vitro comparisons first.
+Doing 011 samples for slice vs in vitro pairwise comparisons first.
 
 	rawdata=read.table("~/workspace/gbm/expression/htseq_counts/GBM011_slice_vs_invitro_gene_read_counts_table_all_final.tsv", header=TRUE, stringsAsFactors=FALSE, row.names=1)
 
@@ -1105,48 +1033,16 @@ q() then
 
 
 
+
+
+
 starting from "supplementary R analysis:
 
 # creat multidimention plots to visualize differences between samples and replicates within samples
 
 	cd $gbm/de/ballgown/ref_only/
-	R --no-restore
-	library(ggplot2)
-	library(gplots)
-	library(GenomicRanges)
-	library(ballgown)
-	
-	
-	pdf(file="GBM011_R_output.pdf")
-	
 
-Import the gene expression data from the HISAT2/StringTie/Ballgown folder
-
-Set working directory where results files exist
-
-	working_dir = "~/workspace/gbm/de/ballgown/ref_only"
-	setwd(working_dir)
-
-List the current contents of this directory (same as ls in terminal)
-	
-	dir()
-
-Import expression and differential expression results from the HISAT2/StringTie/Ballgown pipeline
-
-	load('bg.rda')
-
-View a summary of the ballgown object
-	bg
-
-Load gene names for lookup later in the tutorial
-
-	bg_table = texpr(bg, 'all')
-	bg_gene_names = unique(bg_table[, 9:10])
+R scripts in same folder.
 
 
-Pull the gene_expression data frame from the ballgown object
-	
-	gene_expression = as.data.frame(gexpr(bg))
-	
-	
-	
+
