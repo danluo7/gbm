@@ -324,7 +324,7 @@ Make sure that the only files in the directory are the sam and bam/bai files, th
 
 can do:
 samtools index 1.bam
-samtools index 2.bam
+
 or:
 
     find *.bam -exec echo samtools index {} \; | sh
