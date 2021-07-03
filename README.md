@@ -539,7 +539,7 @@ copy all of above for 024 sample:
 
 
 
-# Use Ballgown in R for differential expression (DE) analysis using output from Stringtie
+# Use Ballgown in R for differential expression (DE) analysis (then PCA) using output from Stringtie
 ## Perform A vs. B comparison, using all replicates, for known (reference only mode) transcripts
 
 (raw counts using htseq output will come later)
@@ -559,19 +559,19 @@ goal is to generate a header file to load into R, for ALL samples for principal 
 
 file for all 011 samples for PCA: (this is how the script should look like (without the enters inbetween each line):
 printf "\"ids\",\"type\",\"path
-\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1
-\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2
-\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3
-\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4
-\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
-\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6
-\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7
-\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8
+\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/1
+\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/2
+\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/ref_only/3
+\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/ref_only/4
+\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/ref_only/5
+\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/ref_only/6
+\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/ref_only/7
+\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/ref_only/8
 \"\n" > GBM011_all.csv
 
 	cd $gbm/de/ballgown/ref_only/
 
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8\"\n" > GBM011_all.csv
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/ref_only/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/ref_only/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/ref_only/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/ref_only/6\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/ref_only/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/ref_only/8\"\n" > GBM011_all.csv
 
 	R --no-restore
 	library(ballgown)
