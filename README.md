@@ -99,7 +99,9 @@ LB = <Sample.ID>_<Index.Sequence> (to indentify if same library was used)
 
 PU = Platform Unit = {FLOWCELL_BARCODE}.{LANE}.{library-specific identifier}. This is the most specific definition for a group of reads.
 
-## At this point decide on naming conventions. Order the samples logically (ie. if samples 1 2 3 should be ordered 3 1 2, then in hisat2 put input sample file 1 > 3.bam, and sample file 2 > 1.bam etc. Then make a note of this change.
+## At this point decide on naming conventions. Order the samples logically 
+
+(ie. if samples 1 2 3 should be ordered 3 1 2, then in hisat2 put input sample file 1 > 3.bam, and sample file 2 > 1.bam etc. Then make a note of this change.
 
 
 	hisat2 -p 8 --rg-id=HCTMMDRXY.1 --rg SM:1 --rg LB:1_TGGTAGAGAT+TGTTGTTCGT --rg PL:ILLUMINA --rg PU:HCTMMDRXY.1.TGGTAGAGAT+TGTTGTTCGT -x $gbm/RNA_REF_FA/hg38/genome --dta --rna-strandness FR -1 $gbm_data/6931_1_S1_L001_R1_001.fastq.gz -2 $gbm_data/6931_1_S1_L001_R2_001.fastq.gz -S $gbm_data/alignments/1_rep1.sam
