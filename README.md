@@ -560,6 +560,7 @@ ids type path-to-file-011_invitro_1 011 $gbm/expression/stringtie/1 011_invitro_
 goal is to generate a header file to load into R, for ALL samples for principal component analysis (the simplest form of multidimentional scaling), and also a file for pairwise comparisons. since we have a ton of comparisisons, might just not do this for now and only do the PCA. 
 
 file for all 011 samples for PCA: (this is how the script should look like (without the enters inbetween each line):
+
 printf "\"ids\",\"type\",\"path
 \"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/1
 \"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/2
