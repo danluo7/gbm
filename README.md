@@ -551,7 +551,7 @@ copy all of above for 024 sample:
 
 
 Use printf to create/print a table with ids, type (each type of sample is a type), and path to the file, as the header. Then n returns a new line. 
-## note: id needs to match the file folder names created by stringtie
+## (note: id needs to match the file folder names created by stringtie)
 
 Bascially, need a table that needs to look like this to feed into R:
 
@@ -574,6 +574,9 @@ printf "\"ids\",\"type\",\"path
 	cd $gbm/de/ballgown/ref_only/
 
 	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/ref_only/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/ref_only/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/ref_only/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/ref_only/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/ref_only/6\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/ref_only/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/ref_only/8\"\n" > GBM011_all.csv
+
+
+
 
 	R --no-restore
 	library(ballgown)
