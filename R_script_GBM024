@@ -3,6 +3,18 @@ Generate a header file to load into R, for ALL samples for principal component a
 file for all 024 samples for PCA: (this is how the script should look like (without the enters inbetween each line):
 
 
+printf "\"ids\",\"type\",\"path
+\"\n\"9\",\"024_slice\",\"$gbm/expression/stringtie/9
+\"\n\"10\",\"024_slice\",\"$gbm/expression/stringtie/10
+\"\n\"11\",\"024_organoid\",\"$gbm/expression/stringtie/11
+\"\n\"12\",\"024_organoid\",\"$gbm/expression/stringtie/12
+\"\n\"13\",\"024_tissue\",\"$gbm/expression/stringtie/13
+\"\n\"14\",\"024_tissue\",\"$gbm/expression/stringtie/14
+\"\n\"15\",\"024_invitro\",\"$gbm/expression/stringtie/15
+\"\n\"16\",\"024_invitro\",\"$gbm/expression/stringtie/16
+\"\n" > GBM024_all.csv
+
+
 printf "\"ids\",\"type\",\"path\"\n\"9\",\"024_slice\",\"$gbm/expression/stringtie/9\"\n\"10\",\"024_slice\",\"$gbm/expression/stringtie/10\"\n\"11\",\"024_organoid\",\"$gbm/expression/stringtie/11\"\n\"12\",\"024_organoid\",\"$gbm/expression/stringtie/12\"\n\"13\",\"024_tissue\",\"$gbm/expression/stringtie/13\"\n\"14\",\"024_tissue\",\"$gbm/expression/stringtie/14\"\n\"15\",\"024_invitro\",\"$gbm/expression/stringtie/15\"\n\"16\",\"024_invitro\",\"$gbm/expression/stringtie/16\"\n" > GBM024_all.csv
 
 
@@ -14,7 +26,9 @@ printf "\"ids\",\"type\",\"path\"\n\"9\",\"024_slice\",\"$gbm/expression/stringt
 	library(ggplot2)
 	library(gplots)
 	library(GenomicRanges)
-
+	working_dir = "~/workspace/gbm/de/ballgown/ref_only/024"
+	setwd(working_dir)
+	dir()
 	pheno_data = read.csv("GBM024_all.csv")  
 
 
@@ -35,14 +49,8 @@ printf "\"ids\",\"type\",\"path\"\n\"9\",\"024_slice\",\"$gbm/expression/stringt
 
 
 
-	pdf(file="GBM024_R_output.pdf")
 
-	working_dir = "~/workspace/gbm/de/ballgown/ref_only"
-	setwd(working_dir)
-	dir()
-
-
-Import expression and differential expression results from the HISAT2/StringTie/Ballgown pipeline
+#Import expression and differential expression results from the HISAT2/StringTie/Ballgown pipeline
 	
 	load('bg.rda')
 
@@ -53,7 +61,7 @@ Import expression and differential expression results from the HISAT2/StringTie/
 	bg_gene_names = unique(bg_table[, 9:10])
 
 
-
+#The data frame is always the format table[rows 1 through whatever, c(columns 1 through whatever,any other column you need added)]. To view the first 3 rows of gene #expression data for the first 4 samples plus the sample in the 6th column (1:3 means 1 through 3).
 
 	gene_expression = as.data.frame(gexpr(bg))
 	head(gene_expression)
@@ -64,23 +72,22 @@ Import expression and differential expression results from the HISAT2/StringTie/
 
 
 	
-	row.names(gene_expression)
+	#####row.names(gene_expression)
 
 
 
 	dim(gene_expression)
 
 
+#The data frame is always the format table[rows 1 through whatever, c(columns 1 through whatever,any other column you need added)]. To view the first 3 rows of gene #expression data for the first 4 samples plus the sample in the 6th column (1:3 means 1 through 3).
+	
+	gene_expression[1:3, c(1:4,6)]
+
+#To view gene expression for a single gene by pulling out row names that matches (or ==) BRD4, across all columns (that weird [i,] which means i want every column, saves #typing c(1:10) by just not typing anything)
 
 
 	i = row.names(gene_expression) == "BRD4"
 	gene_expression[i,]
-
-
-
-
-
-
 
 
 
@@ -93,10 +100,12 @@ Import expression and differential expression results from the HISAT2/StringTie/
 
 
 
+#Many genes will have only 1 transcript, some genes will have several transcripts. Use the 'table()' command #to count the number of times each gene symbol occurs (i.e. #the # of transcripts that have each gene symbol). Then use the 'hist' command to create a #histogram of these counts
 
 
+## Plot the number of transcripts per gene. 
 
-
+	pdf(file="GBM024_R_output-2.pdf") #open up a pdf writer first
 
 	counts=table(transcript_gene_table[,"g_id"])
 	c_one = length(which(counts == 1))
@@ -107,7 +116,8 @@ Import expression and differential expression results from the HISAT2/StringTie/
 	legend("topright", legend_text, lty=NULL)
 
 
-
+## Plot the distribution of transcript sizes as a histogram. lengths will be those of known transcripts. 
+#Good QC step: we had a low coverage library, or other problems, we might get short 'transcripts' that are actually only pieces of real transcripts.
 
 
 
@@ -115,38 +125,53 @@ Import expression and differential expression results from the HISAT2/StringTie/
 	full_table <- texpr(bg , 'all')
 	hist(full_table$length, breaks=500, xlab="Transcript length (bp)", main="Distribution of transcript lengths", col="steelblue")
 
-
-
-
-
+	
+	min(gene_expression[,"FPKM.1"])
+	max(gene_expression[,"FPKM.2"])
 
 
 	min_nonzero=1
 
 
-
 	data_columns=c(1:8)
-	short_names=c("slice_1","slice2","organoid_1","organoid_2","tissue_1","tissue_2","invitro_1","invitro_2")
+	short_names=c("slice_1","slice_2","organoid_1","organoid_2","tissue_1","tissue_2","invitro_1","invitro_2")
 
 
-	colors()
+	#to see all available colors use: colors()
 	data_colors=c("tomato1","tomato2","royalblue1","royalblue2","seagreen1","seagreen2","grey1","grey2")
 
-	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for all 8 sample libraries")
+	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for libraries of all 8 samples")
 
 
 
+	dev.off() #close off the pdf and start a new one for MDS
+	
+
+	
+	pdf(file="GBM024_R_output_MDS-2.pdf")
 
 
+
+## Compare the correlation distance between all replicates
+
+
+#Scree plot: Determine the amount of variance coming from each principal component in a table:
+
+	pc <- princomp(gene_expression[,data_columns],cor=TRUE,scores=TRUE)
+	summary(pc)
+	plot(pc,type='lines')
+	
+
+#Calculate the FPKM sum for all 10 libraries
 
 	gene_expression[,"sum"]=apply(gene_expression[,data_columns], 1, sum)
 
-
+#Filter out genes with a grand sum FPKM of less than 10
 
 	i = which(gene_expression[,"sum"] > 10)
 
 
-
+#Calculate the correlation between all pairs of data
 
 	r=cor(gene_expression[i,data_columns], use="pairwise.complete.obs", method="pearson")
 	r
@@ -154,26 +179,27 @@ Import expression and differential expression results from the HISAT2/StringTie/
 
 
 
-
+## Plot MDS.
+#Convert correlation to distance, and use 'multi-dimensional scaling' to plot the relative differences between libraries, by calculating 2-dimensional #coordinates to #plot points for each library using eigenvectors (eig=TRUE). d, k=2 means 2 dimensions
 	
 	d=1-r
 	mds=cmdscale(d, k=2, eig=TRUE)
 	par(mfrow=c(1,1))
-	plot(mds$points, type="n", xlab="", ylab="", main="MDS distance plot (all non-zero genes)", xlim=c(-0.4,0.4), ylim=c(-0.4,0.4))
+	plot(mds$points, type="n", xlab="", ylab="", main="MDS distance plot (all non-zero genes)", xlim=c(-0.4,0.4), ylim=c(-0.2,0.2))
 	points(mds$points[,1], mds$points[,2], col="grey", cex=2, pch=16)
 	text(mds$points[,1], mds$points[,2], short_names, col=data_colors)
 
 
 
+	dev.off()
 
 
-
-Calculate the differential expression results including significance
-
-	results_genes = stattest(bg, feature="gene", covariate="type", getFC=TRUE, meas="FPKM")
-	results_genes = merge(results_genes,bg_gene_names,by.x=c("id"),by.y=c("gene_id"))
-
-
+	
+	
+	
+	
+	
+	
 
 
 
