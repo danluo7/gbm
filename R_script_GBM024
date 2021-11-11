@@ -349,7 +349,7 @@ now rerun all the R scripts to see if the resulting MDS looks weird (it should) 
 
 	x=log2(gene_expression[,"slice"]+min_nonzero)
 	y=log2(gene_expression[,"non-slice"]+min_nonzero)
-	plot(x=x, y=y, pch=16, cex=0.25, xlab="UHR FPKM (log2)", ylab="FPKM (log2)", main="slice vs non-slice FPKMs")
+	plot(x=x, y=y, pch=16, cex=0.25, xlab="FPKM (log2)", ylab="FPKM (log2)", main="tissue vs non-tissue FPKMs")
 	abline(a=0, b=1)
 	xsig=x[sig]
 	ysig=y[sig]
