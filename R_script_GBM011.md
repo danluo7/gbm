@@ -19,7 +19,7 @@ printf "\"ids\",\"type\",\"path
 \"\n" > GBM011_all.csv
 
 
-printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n" > GBM011_all.csv
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n" > GBM011_all.csv
 
 
 	R --no-restore
