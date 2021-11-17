@@ -352,7 +352,7 @@ now rerun all the R scripts to see if the resulting MDS looks weird (it should) 
 
 
 
-#Display the grand expression values from slice and non-slice and mark those that are significantly differentially expressed. Make sure all the columns are correctly indicated. 
+#Display the grand expression values from tissue and non-tissue and mark those that are significantly differentially expressed. Make sure all the columns are correctly indicated. 
 
 	gene_expression[,"slice"]=apply(gene_expression[,c(1:2)], 1, mean)
 	gene_expression[,"non-slice"]=apply(gene_expression[,c(3:8)], 1, mean)
