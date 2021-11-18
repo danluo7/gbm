@@ -1,8 +1,7 @@
 all scripts worked for 024, redoing this for 011
 
-cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only
-mkdir 011
-cd 011
+mkdir -p /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/11
+cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/11
 
 Generate a header file to load into R, for ALL samples for principal component analysis (the simplest form of multidimentional scaling), and also a file for pairwise comparisons. since we have a ton of comparisisons, might just not do this for now and only do the PCA. 
 
