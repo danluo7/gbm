@@ -208,7 +208,7 @@ printf "\"ids\",\"type\",\"path
 	
 
 
-## comparing invitro to non-invitro using stattest function, and output a heatmap
+## comparing tissue to non-tissue, using stattest function, and output a heatmap
 
 
 #Need to make a new header file and recode the "type" header,since this will determine what gets compared in a stattest. the stattest function will use type as a covariate and use fpkm as a meansurement. since this function can't compare multiple things, need to make another file called GBM049_all_stattest.csv and make the "type" tissue vs. non-tissue. Then heatmaps can be done comparing invitro to everything else. 
