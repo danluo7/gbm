@@ -1,9 +1,11 @@
 all scripts worked for 024, redoing this for 011
 
-	mkdir -p /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/11
-	cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/11
+	mkdir -p /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011
+	cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011
 
-Generate a header file to load into R, for ALL samples for principal component analysis (the simplest form of multidimentional scaling), and also a file for pairwise comparisons. since we have a ton of comparisisons, might just not do this for now and only do the PCA. 
+Generate a header file to load into R. The order is the order that the samples get loaded. This should also match the shortnames later. 
+
+this is for ALL samples for principal component analysis (the simplest form of multidimentional scaling), and also a file for pairwise comparisons. since we have a ton of comparisisons, might just not do this for now and only do the PCA. 
 
 file for all 011 samples for PCA: (this is how the script should look like (without the enters inbetween each line):
 
@@ -15,10 +17,12 @@ printf "\"ids\",\"type\",\"path
 \"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4
 \"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5
 \"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6
+\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7
+\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8
 \"\n" > GBM011_all.csv
 
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n\"7\",\"011_invitro\",\"$gbm/expression/stringtie/7\"\n\"8\",\"011_invitro\",\"$gbm/expression/stringtie/8\"\n" > GBM011_all.csv
 
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"011_slice\",\"$gbm/expression/stringtie/1\"\n\"2\",\"011_slice\",\"$gbm/expression/stringtie/2\"\n\"3\",\"011_organoid\",\"$gbm/expression/stringtie/3\"\n\"4\",\"011_organoid\",\"$gbm/expression/stringtie/4\"\n\"5\",\"011_tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"011_tissue\",\"$gbm/expression/stringtie/6\"\n" > GBM011_all.csv
 
 
 	R --no-restore
@@ -135,14 +139,14 @@ printf "\"ids\",\"type\",\"path
 	min_nonzero=1
 
 
-	data_columns=c(1:6)
-	short_names=c("slice_1","slice_2","organoid_1","organoid_2","tissue_1","tissue_2")
+	data_columns=c(1:8)
+	short_names=c("slice_1","slice_2","organoid_1","organoid_2","tissue_1","tissue_2","invitro_1","invitro_2")
 
 
 	#to see all available colors use: colors()
-	data_colors=c("tomato1","tomato2","royalblue1","royalblue2","seagreen1","seagreen2")
+	data_colors=c("tomato1","tomato2","royalblue1","royalblue2","seagreen1","seagreen2","grey1","grey2")
 
-	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for libraries of all 6 samples")
+	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for libraries of all 8 samples")
 
 
 
@@ -169,7 +173,7 @@ printf "\"ids\",\"type\",\"path
 	plot(pc,type='lines')
 	
 
-#Calculate the FPKM sum for all 6 libraries
+#Calculate the FPKM sum for all 8 libraries
 
 	gene_expression[,"sum"]=apply(gene_expression[,data_columns], 1, sum)
 
@@ -192,7 +196,7 @@ printf "\"ids\",\"type\",\"path
 	d=1-r
 	mds=cmdscale(d, k=2, eig=TRUE)
 	par(mfrow=c(1,1))
-	plot(mds$points, type="n", xlab="", ylab="", main="MDS distance plot (all non-zero genes)", xlim=c(-0.4,0.4), ylim=c(-0.2,0.2))
+	plot(mds$points, type="n", xlab="", ylab="", main="MDS distance plot (PCA) for 011 (all non-zero genes)", xlim=c(-0.4,0.4), ylim=c(-0.2,0.2))
 	points(mds$points[,1], mds$points[,2], col="grey", cex=2, pch=16)
 	text(mds$points[,1], mds$points[,2], short_names, col=data_colors)
 
@@ -200,14 +204,14 @@ printf "\"ids\",\"type\",\"path
 
 	dev.off()
 	q()
-
+	n
 	
 
 
 ## comparing invitro to non-invitro using stattest function, and output a heatmap
 
 
-Need to make a new header file and recode the "type" header,since this will determine what gets compared in a stattest. the stattest function will use type as a covariate and use fpkm as a meansurement. since this function can't compare multiple things, need to make another file called GBM049_all_stattest.csv and make the "type" tissue vs. non-tissue. Then heatmaps can be done comparing invitro to everything else. 
+#Need to make a new header file and recode the "type" header,since this will determine what gets compared in a stattest. the stattest function will use type as a covariate and use fpkm as a meansurement. since this function can't compare multiple things, need to make another file called GBM049_all_stattest.csv and make the "type" tissue vs. non-tissue. Then heatmaps can be done comparing invitro to everything else. 
 
 	mkdir -p /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011/stattest
 	cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011/stattest
@@ -220,12 +224,14 @@ printf "\"ids\",\"type\",\"path
 \"\n\"4\",\"non-tissue\",\"$gbm/expression/stringtie/4
 \"\n\"5\",\"tissue\",\"$gbm/expression/stringtie/5
 \"\n\"6\",\"tissue\",\"$gbm/expression/stringtie/6
+\"\n\"7\",\"non-tissue\",\"$gbm/expression/stringtie/7
+\"\n\"8\",\"non-tissue\",\"$gbm/expression/stringtie/8
 \"\n" > GBM011_all_stattest.csv
 
-	printf "\"ids\",\"type\",\"path\"\n\"1\",\"non-tissue\",\"$gbm/expression/stringtie/1\"\n\"2\",\"non-tissue\",\"$gbm/expression/stringtie/2\"\n\"3\",\"non-tissue\",\"$gbm/expression/stringtie/3\"\n\"4\",\"non-tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"tissue\",\"$gbm/expression/stringtie/6\"\n" > GBM011_all_stattest.csv
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"non-tissue\",\"$gbm/expression/stringtie/1\"\n\"2\",\"non-tissue\",\"$gbm/expression/stringtie/2\"\n\"3\",\"non-tissue\",\"$gbm/expression/stringtie/3\"\n\"4\",\"non-tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"tissue\",\"$gbm/expression/stringtie/6\"\n\"7\",\"non-tissue\",\"$gbm/expression/stringtie/7\"\n\"8\",\"non-tissue\",\"$gbm/expression/stringtie/8\"\n" > GBM011_all_stattest.csv
 
 
-#now rerun all the R scripts to see if the resulting MDS looks weird (it should) and see if stattest and heat map should now work. 
+#now rerun all the R scripts to see if the resulting MDS looks weird (it might) and see if stattest and heat map work. 
 
 
 	R --no-restore
@@ -293,8 +299,9 @@ printf "\"ids\",\"type\",\"path
 		
 	min_nonzero=1
 
-	data_columns=c(1:6)
-	short_names=c("slice_1","slice_2","organoid_1","organoid_2","tissue_1", "tissue_2")
+#make sure the columns AND short names are correct, this is for the names of columns in the heatmap
+	data_columns=c(1:8)
+	short_names=c("slice_1","slice_2","organoid_1","organoid_2","tissue_1","tissue_2","invitro_1","invitro_2")
 
 
 
@@ -303,9 +310,9 @@ printf "\"ids\",\"type\",\"path
 
 	#colors()
 	
-	data_colors=c("tomato1","tomato2","royalblue1","royalblue2","seagreen1","seagreen2")
+	data_colors=c("tomato1","tomato2","royalblue1","royalblue2","seagreen1","seagreen2","grey1","grey2")
 
-	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for libraries of all 6 samples")
+	boxplot(log2(gene_expression[,data_columns]+min_nonzero), col=data_colors, names=short_names, las=2, ylab="log2(FPKM)", main="Distribution of FPKMs for libraries of all 8 samples")
 
 	
 
@@ -345,21 +352,21 @@ printf "\"ids\",\"type\",\"path
 
 	sig=which(results_genes$pval<0.05)
 	results_genes[,"de"] = log2(results_genes[,"fc"])
-	hist(results_genes[sig,"de"], breaks=50, col="seagreen", xlab="log2(Fold change) slice vs non-slice", main="Distribution of differential expression values")
+	hist(results_genes[sig,"de"], breaks=50, col="seagreen", xlab="log2(Fold change) tissue vs non-tissue", main="Distribution of differential expression values")
 	abline(v=-2, col="black", lwd=2, lty=2)
 	abline(v=2, col="black", lwd=2, lty=2)
 	legend("topleft", "Fold-change > 4", lwd=2, lty=2)
 
 
 
-#Display the grand expression values from tissue and non-tissue and mark those that are significantly differentially expressed. Make sure all the columns are correctly indicated. 
+#Display the grand expression values from tissue vs invitro and mark those that are significantly differentially expressed. Make sure all the columns are correctly indicated. 
 
-	gene_expression[,"slice"]=apply(gene_expression[,c(1:2)], 1, mean)
-	gene_expression[,"non-slice"]=apply(gene_expression[,c(3:8)], 1, mean)
+	gene_expression[,"tissue"]=apply(gene_expression[,c(5:6)], 1, mean)
+	gene_expression[,"invitro"]=apply(gene_expression[,c(7:8)], 1, mean)
 
-	x=log2(gene_expression[,"slice"]+min_nonzero)
-	y=log2(gene_expression[,"non-slice"]+min_nonzero)
-	plot(x=x, y=y, pch=16, cex=0.25, xlab="FPKM (log2)", ylab="FPKM (log2)", main="tissue vs non-tissue FPKMs")
+	x=log2(gene_expression[,"tissue"]+min_nonzero)
+	y=log2(gene_expression[,"invitro"]+min_nonzero)
+	plot(x=x, y=y, pch=16, cex=0.25, xlab="FPKM (log2)", ylab="FPKM (log2)", main="tissue vs invitro FPKMs")
 	abline(a=0, b=1)
 	xsig=x[sig]
 	ysig=y[sig]
@@ -388,21 +395,67 @@ Each should be significant with a log2 fold-change >= 2
 	o = order(sig_tn_de[,"qval"], -abs(sig_tn_de[,"de"]), decreasing=FALSE) #Order the output by or p-value and then break ties using fold-change
 
 	output = sig_tn_de[o,c("gene_name","id","fc","pval","qval","de")]
-	write.table(output, file="SigDE_R_ballgown.txt", sep="\t", row.names=FALSE, quote=FALSE)
+	write.table(output, file="SigDE_R_ballgown_tissue_vs_invitro.txt", sep="\t", row.names=FALSE, quote=FALSE)
 
 #View selected columns of the first 25 lines of output
 output[1:25,c(1,4,5)]
 
 
 
-#### Plot #11 - Create a heatmap to vizualize expression differences between the eight samples
+#Now for slices vs invitro: same thing, display the grand expression values from slice vs invitro and mark those that are significantly differentially expressed. Make sure all the columns are correctly indicated. 
+
+	gene_expression[,"slice"]=apply(gene_expression[,c(1:2)], 1, mean)
+	gene_expression[,"invitro"]=apply(gene_expression[,c(7:8)], 1, mean)
+
+	x=log2(gene_expression[,"slice"]+min_nonzero)
+	y=log2(gene_expression[,"invitro"]+min_nonzero)
+	plot(x=x, y=y, pch=16, cex=0.25, xlab="FPKM (log2)", ylab="FPKM (log2)", main="slice vs invitro FPKMs")
+	abline(a=0, b=1)
+	xsig=x[sig]
+	ysig=y[sig]
+	points(x=xsig, y=ysig, col="magenta", pch=16, cex=0.5)
+	legend("topleft", "Significant", col="magenta", pch=16)
+
+
+
+#Get the gene symbols for the top N (according to corrected p-value) and display them on the plot
+	
+	topn = order(abs(results_genes[sig,"fc"]), decreasing=TRUE)[1:25]
+	topn = order(results_genes[sig,"qval"])[1:25]
+	text(x[topn], y[topn], results_genes[topn,"gene_name"], col="black", cex=0.75, srt=45)
+
+
+#Write a simple table of differentially expressed transcripts to an output file
+
+#Each should be significant with a log2 fold-change >= 2
+
+	sigpi = which(results_genes[,"pval"]<0.05)
+	sigp = results_genes[sigpi,]
+	sigde = which(abs(sigp[,"de"]) >= 2)
+	sig_tn_de = sigp[sigde,]
+
+
+	o = order(sig_tn_de[,"qval"], -abs(sig_tn_de[,"de"]), decreasing=FALSE) #Order the output by or p-value and then break ties using fold-change
+
+	output = sig_tn_de[o,c("gene_name","id","fc","pval","qval","de")]
+	write.table(output, file="SigDE_R_ballgown_slice_vs_invitro.txt", sep="\t", row.names=FALSE, quote=FALSE)
+
+#View selected columns of the first 25 lines of output
+output[1:25,c(1,4,5)]
+
+
+
+
+
+
+#### Plot #11 - Create a heatmap to vizualize expression differences between the 8 samples
 
 #Define custom dist and hclust functions for use with heatmaps
 
 	mydist=function(c) {dist(c,method="euclidian")}
 	myclust=function(c) {hclust(c,method="average")}
 
-	main_title="sig DE Transcripts"
+	main_title="sig DE Transcripts for 011"
 	par(cex.main=0.8)
 	sig_genes_de=sig_tn_de[,"id"]
 	sig_gene_names_de=sig_tn_de[,"gene_name"]
