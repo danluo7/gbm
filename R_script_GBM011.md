@@ -210,8 +210,9 @@ printf "\"ids\",\"type\",\"path
 
 Need to make a new header file and recode the "type" header,since this will determine what gets compared in a stattest. the stattest function will use type as a covariate and use fpkm as a meansurement. since this function can't compare multiple things, need to make another file called GBM049_all_stattest.csv and make the "type" tissue vs. non-tissue. Then heatmaps can be done comparing invitro to everything else. 
 
-	cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011
-	mkdir stattest
+	mkdir -p /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011/stattest
+	cd /home/daniel/ubuntu/workspace/gbm/de/ballgown/ref_only/011/stattest
+	
 	
 printf "\"ids\",\"type\",\"path
 \"\n\"1\",\"non-tissue\",\"$gbm/expression/stringtie/1
@@ -222,10 +223,10 @@ printf "\"ids\",\"type\",\"path
 \"\n\"6\",\"tissue\",\"$gbm/expression/stringtie/6
 \"\n" > GBM011_all_stattest.csv
 
-printf "\"ids\",\"type\",\"path\"\n\"1\",\"non-tissue\",\"$gbm/expression/stringtie/1\"\n\"2\",\"non-tissue\",\"$gbm/expression/stringtie/2\"\n\"3\",\"non-tissue\",\"$gbm/expression/stringtie/3\"\n\"4\",\"non-tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"tissue\",\"$gbm/expression/stringtie/6\"\n" > GBM011_all_stattest.csv
+	printf "\"ids\",\"type\",\"path\"\n\"1\",\"non-tissue\",\"$gbm/expression/stringtie/1\"\n\"2\",\"non-tissue\",\"$gbm/expression/stringtie/2\"\n\"3\",\"non-tissue\",\"$gbm/expression/stringtie/3\"\n\"4\",\"non-tissue\",\"$gbm/expression/stringtie/4\"\n\"5\",\"tissue\",\"$gbm/expression/stringtie/5\"\n\"6\",\"tissue\",\"$gbm/expression/stringtie/6\"\n" > GBM011_all_stattest.csv
 
 
-now rerun all the R scripts to see if the resulting MDS looks weird (it should) and see if stattest and heat map should now work. 
+#now rerun all the R scripts to see if the resulting MDS looks weird (it should) and see if stattest and heat map should now work. 
 
 
 	R --no-restore
