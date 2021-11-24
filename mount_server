@@ -1,5 +1,8 @@
 how to mount server
 
+in file navigator: go to "other locations" -> connect to server (at bottom) -> type: smb://duhsnas-pri.dhe.duke.edu/dusom_radonc_floyd/All_Staff
+in command line (for commandline based programs to work):
+
 sudo apt install cifs_utils
 
 
