@@ -59,7 +59,7 @@ Alternatively, UCSC's references are also hosted on S3 bucket: http://daehwankim
 
 
 
-### alignment using hisat2 (which suceeded hisat and tophat)
+## alignment using hisat2 (which suceeded hisat and tophat)
 
 setting the Read Group info:
 
@@ -99,7 +99,7 @@ LB = <Sample.ID>_<Index.Sequence> (to indentify if same library was used)
 
 PU = Platform Unit = {FLOWCELL_BARCODE}.{LANE}.{library-specific identifier}. This is the most specific definition for a group of reads.
 
-## At this point decide on naming conventions. Order the samples logically 
+### At this point decide on naming conventions. Order the samples logically 
 
 (ie. if samples 1 2 3 should be ordered 3 1 2, then in hisat2 put input sample file 1 > 3.bam, and sample file 2 > 1.bam etc. Then make a note of this change.
 
