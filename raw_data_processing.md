@@ -481,7 +481,7 @@ Extra options specified below:
 	htseq-count --format bam --order pos --mode intersection-strict --stranded reverse --minaqual 1 --type exon --idattr gene_id $gbm_data/alignments/32.bam $gbm/RNA_REF_GTF/mm10.ncbiRefSeq.gtf > 32.tsv
 
 
-Join the results for each replicate together and merge results files into a single matrix for use in edgeR. Since edgeR only does pairwise comparisons, need to pair up the compared samples, then creat a simple text file with just the header that will be used for the table:
+Join the results for each replicate together and merge results files into a single matrix for use in edgeR.  edgeR only does pairwise comparisons
 
 
 slice vs invitro: 
@@ -504,37 +504,9 @@ Clean up a bit more, add a header, reformat the result as a tab delimited file. 
 
 
 
-tissue vs invitro:
-
-organoid vs invitro:
 
 
-
-
-invitro vs slice:
-
-tissue vs slice:
-
-organoid vs slice:
-
-
-
-
-slice vs tissue:
-
-organoid vs tissue:
-
-invitro vs tissue:
-
-
-
-
-
-copy all of above for 024 sample:
-
-
-
-(DE of htseq results using EdgeR continues after Stringtie+Ballgown)
+(DE of htseq results using EdgeR will continue after Stringtie+Ballgown)
 
 
 -------------------------
@@ -544,7 +516,7 @@ copy all of above for 024 sample:
 # Use Ballgown in R for differential expression (DE) analysis (then PCA) using output from Stringtie
 ## Perform A vs. B comparison, using all replicates, for known (reference only mode) transcripts
 
-(raw counts using htseq output will come later)
+(raw counts using htseq output with EdgeR will come later)
 
 	mkdir -p $gbm/de/ballgown/ref_only
 	cd $gbm/de/ballgown/ref_only/
