@@ -168,7 +168,7 @@ printf "\"ids\",\"type\",\"path\"\n\"011_s\",\"011_slice\",\"/home/daniel/ubuntu
 
 
 	#to see all available colors use: colors()
-					data_colors=c("tomato1","royalblue1","seagreen1","grey1","tomato2","royalblue2","seagreen2","grey2","black","tomato3","seagreen3","royalblue3","grey3","tomato4","seagreen4","grey4")
+		data_colors=c("tomato1","royalblue1","seagreen1","grey1","tomato2","royalblue2","seagreen2","grey2","black","tomato3","seagreen3","royalblue3","grey3","tomato4","seagreen4","grey4")
 
 
 
@@ -389,7 +389,7 @@ short_names=c("011_t","024_t","049_t","unc_t","011_s","024_s","049_s","unc_s","0
 
 	#colors()
 	
-data_colors=c("green","green","green","green","red","red","red","red","blue","blue","blue","grey","grey","grey","grey","black")
+	data_colors=c("green","green","green","green","red","red","red","red","blue","blue","blue","grey","grey","grey","grey","black")
 
 
 
