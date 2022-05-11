@@ -1,5 +1,7 @@
 # gbm all GBM tumors (049, 011, 024,UNC)
 
+## this continues from raw data processing. the following is Ballgown analysis for differential expression and beyond. 
+
 combining all tumors (replicates merged)
 
 
